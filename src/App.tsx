@@ -5,8 +5,11 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Bag of Dungeon Companion App</h1>
-      <button className="btn btn-primary">Button</button>
+      <h1
+      className='text-3xl font-bold underline'
+      >
+        Bag of Dungeon Companion App</h1>
+      <button className="btn btn-primary">Primary</button>
     </div>
   );
 }

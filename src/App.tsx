@@ -11,7 +11,7 @@ function App() {
       >
         Bag of Dungeon Companion App</h1>
       
-        <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
+  <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
   <li>
     <a>
       <svg
@@ -57,16 +57,54 @@ function App() {
     </a>
   </li>
 </ul>
-
-
-
-
-
-
-
-
-
     </div>
+    <div className="form-control flex items-center">
+    <div className="card bg-base-100 w-96 shadow-xl mt2 form-control flex items-center">
+  <div className="card-body">
+    <h2 className="card-title">Fun Facts</h2>
+    <p className="form-control items-center">Welcome!</p>
+    <div className="card-actions justify-end">
+   
+    <div className="h-56 overflow-x-auto">
+    <h1>Leaderboard</h1>
+  <table className="table table-pin-rows">
+  
+    <thead>
+
+      <tr>
+        <th>Player</th>
+        <th>Win Percentage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Batman</td>
+        <td>100%</td>
+      </tr>
+      <tr>
+        <td>Wonder Woman</td>
+        <td>95%</td>
+      </tr>
+      <tr>
+        <td>Green Lantern</td>
+        <td>50%</td>
+      </tr>
+      <tr>
+        <td>Superman</td>
+        <td>45%</td>
+      </tr>
+      <tr>
+        <td>The Flash</td>
+        <td>20%</td>
+      </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+
     </div>
   );
 }

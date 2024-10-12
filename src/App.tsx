@@ -70,9 +70,9 @@ function App() {
   <table className="table table-pin-rows">
   
     <thead>
-
       <tr>
         <th>Player</th>
+        <th>Games Played</th>
         <th>Win Percentage</th>
       </tr>
     </thead>

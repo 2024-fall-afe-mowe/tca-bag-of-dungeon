@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { Play } from "./play";
 import { Settings } from "./settings";
+import { LeaderboardEntry } from "./game-results";
 
-export const Home = () => {
+interface HomeProps {
+    leaderboardData: LeaderboardEntry[];
+    }
+
+export const Home: React.FC<HomeProps> = ({
+    leaderboardData
+}) => {
 
     const nav = useNavigate();
 
@@ -61,9 +68,51 @@ export const Home = () => {
         </a> Settings
     </button>
     </div>
-  </div>
-        //Leaderboard 
+    <div className="form-control items-center ">
+    <div className="card bg-base-100 shadow-xl">
+                <div className="card-body p-3 overflow-x-hidden">
+                    <h2 className="card-title">
+                        Leaderboard
+                    </h2>
+                    {leaderboardData.length > 0
+                    ? (<table className="table">
+                        <thead>
+                            <tr>
+                                <th>W</th>
+                                <th>L</th>
+                                <th>AVG</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {leaderboardData.map(x =>(
+                                <tr key={x.name}>
+                                    <td>
+                                    {x.wins}
+                                    </td>
+                                    <td>
+                                    {x.losses}
+                                    </td>
+                                    <td>
+                                    {x.avg}
+                                    </td>
+                                    <td>
+                                    {x.name}
+                                    </td>
+                                </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                    ): 
+                    (<p>
+                    Play a game to see the leaderboard!
+                    </p>)}
+    </div>
+            </div> 
+            </div>  
 
+    </div>    
         
 
     );

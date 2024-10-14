@@ -1,10 +1,34 @@
 import React from 'react';
 //import logo from './logo.svg';
+import {
+  createHashRouter,
+  RouterProvider,
+} from "react-router-dom";
 import './App.css';
+
+const router = createHashRouter(
+  [
+  {
+    path: "/",
+    element: <div>Home</div>,
+  },
+  {
+    path: "/play",
+    element: <div>Play</div>,
+  },
+  {
+    path: "/setup",
+    element: <div>Setup</div>,
+  },
+]
+);
 
 function App() {
   return (
     <div className="App">
+      <RouterProvider 
+        router={router}
+        />
       <div className="form-control flex items-center">
       <h1
       className='text-2xl font-bold underline mb-4'

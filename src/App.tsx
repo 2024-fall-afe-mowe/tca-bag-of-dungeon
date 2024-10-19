@@ -51,11 +51,11 @@ const dummyGameResults: GameResult[] = [
 const App = () => {
 
   const [gameResults, setGameResults] = useState(dummyGameResults);
-/*
+
 const addNewGameResult = (newResult: GameResult) => setGameResults([
   ...gameResults,
   newResult
-]); */
+]);
 
 
 

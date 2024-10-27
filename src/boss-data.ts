@@ -1,11 +1,14 @@
-export type GameResult = {
-    winner: string;
-    players: string[];
+export type BossData = {
+    name: string;
+    health: number;
+    combatDice: number;
+    combatModifier: number;
+    specialNotes: string;
 };
 
-
-    {"boss": [
-        {"name":"Reacher", 
+const BossData = []
+    
+/*         {"name":"Reacher", 
         "health":15, 
         "combat dice":2, 
         "combat modifier":7,
@@ -22,6 +25,7 @@ export type GameResult = {
         "combat dice":4, 
         "combat modifier":0,
         "Special Notes": "This monster guards the exit of the Dungeon. She is immune to arrows, but never leaves her post at the Exit Tile."
-        }
-    ]}
+        } */
+    
+
     

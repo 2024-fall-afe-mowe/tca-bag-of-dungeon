@@ -1,4 +1,17 @@
+
 import { useNavigate } from "react-router-dom";
+
+import { 
+  useRef, 
+  useState 
+} from "react";
+
+import {
+  BossData,
+  bossType,
+  Character,
+  availableCharacter
+ } from "./game-results";
 
 export const Settings = () => {
   const nav = useNavigate();

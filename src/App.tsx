@@ -18,6 +18,8 @@ import {
 
 const dummyGameResults: GameResult[] = [
   {
+    startTime: "2024-09-23T15:36:25.123Z",
+    endTime: "2024-09-23T15:46:25.123Z",
     winner: "Chris",
     players: [
       "Chris",
@@ -27,6 +29,8 @@ const dummyGameResults: GameResult[] = [
     ]
   },
   {
+    startTime: "2024-09-23T15:36:25.123Z",
+    endTime: "2024-09-23T15:46:25.123Z",
     winner: "Mina",
     players: [
       "Chris",
@@ -35,6 +39,8 @@ const dummyGameResults: GameResult[] = [
     ]
   },
   {
+    startTime: "2024-10-23T15:36:25.123Z",
+    endTime: "2024-10-23T15:46:25.123Z",
     winner: "Mina",
     players: [
       "Chris",

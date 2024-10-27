@@ -73,7 +73,7 @@ export const getLeaderboard = (
         ];
     };
 
-    const getPreviousPlayers = (results: GameResult[]) => {
+export const getPreviousPlayers = (results: GameResult[]) => {
     
         const previousPlayers = results.flatMap(
             x => x.players

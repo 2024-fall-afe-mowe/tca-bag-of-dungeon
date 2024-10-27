@@ -13,7 +13,9 @@ import {
 
  import { 
     GameResult,
-    getLeaderboard
+    getLeaderboard,
+    getPreviousPlayers, 
+    CurrentPlayer
 } from "./game-results";
 
 const dummyGameResults: GameResult[] = [
@@ -50,20 +52,16 @@ const dummyGameResults: GameResult[] = [
   }
 ];
 
-
-
-
-
 const App = () => {
 
-  const [gameResults, setGameResults] = useState(dummyGameResults);
+const [gameResults, setGameResults] = useState(dummyGameResults);
+
+const [currentPlayer, setCurrentPlayers] = useState<CurrentPlayer[]>([]);
 
 const addNewGameResult = (newResult: GameResult) => setGameResults([
   ...gameResults,
   newResult
 ]);
-
-
 
 const router = createHashRouter(
   [
@@ -79,7 +77,10 @@ const router = createHashRouter(
   },
   {
     path: "/settings",
-    element: <Settings />,
+    element: <Settings
+    previousPlayers={getPreviousPlayers(gameResults)}
+    setCurrentPlayers={setCurrentPlayers}
+    />,
   },
 ]
 );

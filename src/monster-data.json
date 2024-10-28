@@ -1,0 +1,53 @@
+    {"monster": [
+        {"name":"Zombie", 
+            "health":6, 
+            "combat dice":1, 
+            "combat modifier":2
+        },
+        {"name":"Goblin", 
+        "health":5, 
+        "combat dice":1, 
+        "combat modifier":1
+        },
+        {"name":"Troll", 
+        "health":10, 
+        "combat dice":2, 
+        "combat modifier":4
+        },
+        {"name":"Minotaur", 
+        "health":11, 
+        "combat dice":2, 
+        "combat modifier":5
+        },
+        {"name":"Mummy", 
+        "health":7, 
+        "combat dice":1, 
+        "combat modifier":4
+        },
+        {"name":"Werewolf", 
+        "health":10, 
+        "combat dice":2, 
+        "combat modifier":3
+        },
+        {"name":"Monk", 
+        "health":8, 
+        "combat dice":2, 
+        "combat modifier":4
+        },
+        {"name":"Skeleton", 
+        "health":12, 
+        "combat dice":2, 
+        "combat modifier":1
+        },
+        {"name":"Mud Monster", 
+        "health":9, 
+        "combat dice":2, 
+        "combat modifier":2
+        },
+        {"name":"Giant Snake", 
+        "health":13, 
+        "combat dice":2, 
+        "combat modifier":6
+        }
+     ]
+    }

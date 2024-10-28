@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/tca-bag-of-dungeon/static/css/main.b70f25b5.css",
+    "main.js": "/tca-bag-of-dungeon/static/js/main.7d83f315.js",
+    "static/js/453.f3153732.chunk.js": "/tca-bag-of-dungeon/static/js/453.f3153732.chunk.js",
+    "index.html": "/tca-bag-of-dungeon/index.html",
+    "main.b70f25b5.css.map": "/tca-bag-of-dungeon/static/css/main.b70f25b5.css.map",
+    "main.7d83f315.js.map": "/tca-bag-of-dungeon/static/js/main.7d83f315.js.map",
+    "453.f3153732.chunk.js.map": "/tca-bag-of-dungeon/static/js/453.f3153732.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b70f25b5.css",
+    "static/js/main.7d83f315.js"
+  ]
+}

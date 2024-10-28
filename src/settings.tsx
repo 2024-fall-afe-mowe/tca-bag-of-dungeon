@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { 
+  useEffect,
   useRef, 
   useState 
 } from "react";
@@ -18,6 +19,7 @@ import {
  interface SetupProps {
   previousPlayers: string[];
   setCurrentPlayers: (players: CurrentPlayer[]) => void;
+  setTitle:(t:string) => void;
 }
 
  interface availablePlayers {
@@ -29,8 +31,15 @@ import {
 
 export const Settings: React.FC<SetupProps> = ({
   previousPlayers,
-  setCurrentPlayers
+  setCurrentPlayers,
+  setTitle
 }) => {
+
+  useEffect(
+    () => setTitle("Setup"),
+    []
+  );
+
   const nav = useNavigate();
 
   const [availablePlayers, setAvailablePlayers] = useState(
@@ -91,9 +100,9 @@ export const Settings: React.FC<SetupProps> = ({
     return(
   <div>
   <div className="text-center mb-3">
-    <h1 className="text-2xL font-bold">
+{/*     <h1 className="text-2xL font-bold">
       Set Up
-    </h1>
+    </h1> */}
   {/* home button */}
     <button className = "btn"
         onClick={() => nav("../")}>

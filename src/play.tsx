@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
+import { 
+  useEffect,
+  useRef, 
+  useState 
+} from "react";
+
 import { 
   CurrentPlayer,
   Character,
@@ -12,21 +18,28 @@ import {
  interface PlayProps {
   addNewGameResult: (gr: GameResult) => void;
   currentPlayers: CurrentPlayer[];
+  setTitle:(t:string) => void;
  }
 
 export const Play: React.FC<PlayProps> = ({
   addNewGameResult,
-  currentPlayers
+  currentPlayers,
+  setTitle
 }) => {
+
+  useEffect(
+    () => setTitle("Play"),
+    []
+  );
 
     const nav = useNavigate();
     const [startTimeState, setStartTimeState] = useState(new Date().toISOString());
 
     return(
   <div className="text-center">
-    <h1 className="text-2xL font-bold">
+{/*     <h1 className="text-2xL font-bold">
       Play
-    </h1>
+    </h1> */}
     {/* home button */}
 {/*     <button className = "btn"
         onClick={() => nav("../")}>

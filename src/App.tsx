@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
- import { Home } from "./home";
+ import { AppTitle, Home } from "./home";
  import { Play } from "./play";
  import { Settings } from "./settings";
 
@@ -57,6 +57,8 @@ const App = () => {
 
 const [gameResults, setGameResults] = useState(dummyGameResults);
 
+const [title, setTitle] = useState(AppTitle);
+
 const [currentPlayer, setCurrentPlayers] = useState<CurrentPlayer[]>([]);
 
 const addNewGameResult = (newResult: GameResult) => setGameResults([
@@ -71,6 +73,7 @@ const router = createHashRouter(
     element: <Home 
       leaderboardData={getLeaderboard(gameResults)}
       generalFactsData={getGeneralFacts(gameResults)}
+      setTitle={setTitle}
     />
   },
   {
@@ -78,6 +81,7 @@ const router = createHashRouter(
     element: <Play 
       addNewGameResult={addNewGameResult}
       currentPlayers={currentPlayer}
+      setTitle={setTitle}
     />,
   },
   {
@@ -85,6 +89,7 @@ const router = createHashRouter(
     element: <Settings
     previousPlayers={getPreviousPlayers(gameResults)}
     setCurrentPlayers={setCurrentPlayers}
+    setTitle={setTitle}
  
     />,
   },
@@ -94,9 +99,19 @@ const router = createHashRouter(
 
   return (
     <div className="App">
+
+    <div className="navbar bg-base-200 items-center text-center">
+      <span className="text-2xl font-bold text-center">
+        {AppTitle}
+      </span>
+      </div>
+
       <RouterProvider 
         router={router}
         />
+
+
+
     </div>
   );
 }

@@ -1,4 +1,11 @@
 import { useNavigate } from "react-router-dom";
+
+import { 
+    useEffect,
+    useRef, 
+    useState 
+  } from "react";
+
 import { Play } from "./play";
 import { Settings } from "./settings";
 import { 
@@ -6,15 +13,24 @@ import {
     GeneralFactsDisplay 
 } from "./game-results";
 
+export const AppTitle = "Bag of Dungeon";
+
 interface HomeProps {
     leaderboardData: LeaderboardEntry[];
     generalFactsData: GeneralFactsDisplay;
+    setTitle:(t:string) => void;
     }
 
 export const Home: React.FC<HomeProps> = ({
     leaderboardData,
-    generalFactsData
+    generalFactsData,
+    setTitle
 }) => {
+
+    useEffect(
+        () => setTitle("Home"),
+        []
+      );
 
     const nav = useNavigate();
 
@@ -23,9 +39,9 @@ export const Home: React.FC<HomeProps> = ({
   <div 
     className="form-control mb-3"
     > 
-    <h1 className="text-2xL font-bold text-center">
+{/*     <h1 className="text-2xL font-bold text-center">
       Home
-    </h1>
+    </h1> */}
     <div className = "text-center">
     <button className = "btn"
         onClick={() => nav("./")}>

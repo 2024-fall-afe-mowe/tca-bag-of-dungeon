@@ -99,18 +99,20 @@ const router = createHashRouter(
 
   return (
     <div className="App">
-
-    {AppTitle}
-
-    <div className="navbar bg-base-200 items-center text-center">
-      <span className="text-2xl font-bold text-center">
+        <div className="text-2xl font-bold item-center text-center mb-2">
+        {AppTitle}
+        </div>
+    <div className="items-center text-center mb-2">
+      <span className="text-1xl font-bold">
         {title}
-      </span>
-      </div>
-
-      <RouterProvider 
+        
+        <RouterProvider 
         router={router}
         />
+
+
+      </span>
+      </div>
 
 
 

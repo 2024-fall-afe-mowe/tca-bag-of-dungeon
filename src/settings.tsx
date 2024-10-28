@@ -72,12 +72,16 @@ export const Settings: React.FC<SetupProps> = ({
 
   };
 
-  const selectCharacter = () => {
+  const playersAndCharacterChosen = 
+  availablePlayers.filter(x => x.checked).length === 1
+  && availablePlayers.filter(x => x.checked && x.character).length === 1;
 
-  }
+ 
+const getCharacterList = () => {
 
-  
 
+
+};
 
 
 
@@ -110,6 +114,7 @@ export const Settings: React.FC<SetupProps> = ({
     </button>
 {/* play button */}
     <button className = "btn btn-accent"
+  //  disabled={!playersAndCharacterChosen}
     onClick={() => nav("../play")}>
       <a>
       <svg xmlns="http://www.w3.org/2000/svg"  
@@ -143,21 +148,19 @@ export const Settings: React.FC<SetupProps> = ({
                     <button className="btn btn-accent join-item mb-3 mx-4"
                     disabled={newPlayerName.length === 0}
                     onClick={validateAndAddNewPlayer}
+
                     >Add Player
                     </button>
                     </div>
 
-                    <button className="btn btn-warning mb-3">Clear</button>
-                </div>
+               </div>
 
             </div>
-
-
       </div>
   </div>
 
   <div className="form-control items-center">
-      {/* add player card */}
+      {/* Select player card */}
       <div className="card bg-base-100 shadow-xl mb-3">
       <h2 className="card-title mb-2 px-2">
           Select Player
@@ -170,7 +173,8 @@ export const Settings: React.FC<SetupProps> = ({
               <div className="form-control"
               key={x.name}>
                 <label className="label cursor-pointer">
-                  <input type="checkbox" className="checkbox" />
+                  <input type="checkbox" className="checkbox" 
+                  />
 
                   <span className="flex label-text">
                     {x.name}
@@ -187,23 +191,31 @@ export const Settings: React.FC<SetupProps> = ({
       </div>
       
       {/* choose character card */}
-      <div className="flex card bg-base-100 shadow-xl mb-3">
+       <div className="flex card bg-base-100 shadow-xl mb-3">
       <h3 className="card-title mb-2 px-2">
                         Choose Your Character
            </h3>
         <div className="card-body p-3 overflow-x-hidden mb-3">
-              <select className="select select-bordered w-full max-w-xs">
-              <option disabled selected>Choose Your Character</option>
-              <option>Han Solo</option>
-              <option>Greedo</option>
-          </select>
+                 
+                <select className="select select-bordered w-full max-w-xs">
+                <option disabled selected>Choose your Character</option>
+                {
+          availableCharacter.map(
+            x => (
+              <option> 
+              {x.name} </option>
 
+            )
+          )
+         } 
+                </select>
+        </div>
         </div>
       </div>
 
 
       </div>
 
-  </div>
+
     );
   }

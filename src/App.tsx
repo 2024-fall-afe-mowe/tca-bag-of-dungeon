@@ -15,7 +15,8 @@ import {
     GameResult,
     getLeaderboard,
     getPreviousPlayers, 
-    CurrentPlayer
+    CurrentPlayer, 
+    getGeneralFacts
 } from "./game-results";
 
 const dummyGameResults: GameResult[] = [
@@ -69,17 +70,22 @@ const router = createHashRouter(
     path: "/",
     element: <Home 
       leaderboardData={getLeaderboard(gameResults)}
+      generalFactsData={getGeneralFacts(gameResults)}
     />
   },
   {
     path: "/play",
-    element: <Play />,
+    element: <Play 
+      addNewGameResult={addNewGameResult}
+      currentPlayers={currentPlayer}
+    />,
   },
   {
     path: "/settings",
     element: <Settings
     previousPlayers={getPreviousPlayers(gameResults)}
     setCurrentPlayers={setCurrentPlayers}
+ 
     />,
   },
 ]

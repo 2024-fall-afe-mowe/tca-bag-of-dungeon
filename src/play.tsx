@@ -1,8 +1,23 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { 
+  CurrentPlayer,
+  Character,
+  GameResult
+ } from "./game-results";
 
-export const Play = () => {
+ interface PlayProps {
+  addNewGameResult: (gr: GameResult) => void;
+  currentPlayers: CurrentPlayer[];
+ }
+
+export const Play: React.FC<PlayProps> = ({
+  addNewGameResult,
+  currentPlayers
+}) => {
 
     const nav = useNavigate();
+    const [startTimeState, setStartTimeState] = useState(new Date().toISOString());
 
     return(
   <div className="text-center">

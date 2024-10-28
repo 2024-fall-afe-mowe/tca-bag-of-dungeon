@@ -44,6 +44,12 @@ export type CurrentPlayer = {
     character: Character;
 };
 
+export type GeneralFactsDisplay = {
+    lastPlayed: string 
+    , totalGames: number 
+    , shortestGame: string
+    , longestGame: string
+};
 
 export const getLeaderboard = (
     results: GameResult[]
@@ -110,7 +116,35 @@ export const getPreviousPlayers = (results: GameResult[]) => {
         name: player
     };
     };
-
+    
+   export const getGeneralFacts = (results: GameResult[]): GeneralFactsDisplay => {
+    
+        const now = Date.now();
+        const gameEndTimesInMilliseconds = results.map(x => Date.parse(x.endTime));
+    
+        const lastPlayedInMilliseconds = now - Math.max(...gameEndTimesInMilliseconds);
+        const lastPlayedInDays = lastPlayedInMilliseconds / 1000 / 60 / 60 / 24;
+    
+        const gameDurationsInMilliseconds = results.map(
+            x => Date.parse(x.endTime) - Date.parse(x.startTime)
+        );
+    
+        const shortestGameInMilliseconds = Math.min(...gameDurationsInMilliseconds);
+        const shortestGameInMinutes = shortestGameInMilliseconds / 1000 / 60;
+    
+        const longestGameInMilliseconds = Math.max(...gameDurationsInMilliseconds);
+        const longestGameInMinutes = longestGameInMilliseconds / 1000 / 60;
+    
+        return {
+            lastPlayed: `${lastPlayedInDays.toFixed(0)} day(s) ago`
+            , totalGames: results.length
+            , shortestGame: `${shortestGameInMinutes.toFixed(1)} minutes`
+            , longestGame: `${longestGameInMinutes.toFixed(1)} minutes`
+        };
+    };
+    
+    
+    
 export const bossType: BossData[] = [
     {
     bossName: "Reacher",
@@ -202,3 +236,4 @@ export const availableCharacter: Character[] = [
     specialNotes: "Rill is wise in the lore of medicine, a gifted 7th daughter from the line of the healer folk."
     }
 ]
+

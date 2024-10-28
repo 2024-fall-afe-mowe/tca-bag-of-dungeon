@@ -39,6 +39,14 @@ export type Character = {
     specialNotes: string
 }
 
+export type Monster = {
+        monsterName: string;
+        health: number;
+        combatDice: number;
+        combatModifier: number;
+}
+{/* end of game data exports */}
+
 export type CurrentPlayer = {
     name: string;
     character: Character;
@@ -144,7 +152,7 @@ export const getPreviousPlayers = (results: GameResult[]) => {
     };
     
     
-    
+{/* game database */}
 export const bossType: BossData[] = [
     {
     bossName: "Reacher",
@@ -237,3 +245,56 @@ export const availableCharacter: Character[] = [
     }
 ]
 
+export const monsterList: Monster[] = [
+    {
+    monsterName: "Zombie",
+    health: 15,
+    combatDice: 2,
+    combatModifier:2
+    },
+    {monsterName:"Goblin", 
+    health:5, 
+    combatDice:1, 
+    combatModifier:1
+    },
+    {monsterName:"Troll", 
+    health:10, 
+    combatDice:2, 
+    combatModifier:4
+    },
+    {monsterName:"Minotaur", 
+    health:11, 
+    combatDice:2, 
+    combatModifier:5
+    },
+    {monsterName:"Mummy", 
+    health:7, 
+    combatDice:1, 
+    combatModifier:4
+    },
+    {monsterName:"Werewolf", 
+    health:10, 
+    combatDice:2, 
+    combatModifier:3
+    },
+    {monsterName:"Monk", 
+    health:8, 
+    combatDice:2, 
+    combatModifier:4
+    },
+    {monsterName:"Skeleton", 
+    health:12, 
+    combatDice:2, 
+    combatModifier:1
+    },
+    {monsterName:"Mud Monster", 
+    health:9, 
+    combatDice:2, 
+    combatModifier:2
+    },
+    {monsterName:"Giant Snake", 
+    health:13, 
+    combatDice:2, 
+    combatModifier:6
+    }
+]

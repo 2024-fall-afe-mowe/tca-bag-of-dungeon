@@ -105,7 +105,7 @@ const router = createHashRouter(
     <div className="items-center text-center mb-2">
       <span className="text-1xl font-bold">
         {title}
-
+        
         <RouterProvider 
         router={router}
         />

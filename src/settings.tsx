@@ -77,14 +77,14 @@ export const Settings: React.FC<SetupProps> = ({
   && availablePlayers.filter(x => x.checked && x.character).length === 1;
 
  
-const getCharacterList = () => {
-
-
-
-};
-
-
-
+/*  const setPlayerCharacter = (playerName: string, character: Character) => setAvailablePlayers(
+  availablePlayers.map(x => ({
+    ...x, 
+    character: x.name === playerName
+    ? character
+    : x.character
+  }))
+); */
 
 
 

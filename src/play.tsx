@@ -28,7 +28,7 @@ export const Play: React.FC<PlayProps> = ({
       Play
     </h1>
     {/* home button */}
-    <button className = "btn"
+{/*     <button className = "btn"
         onClick={() => nav("../")}>
         <a>
         <svg
@@ -44,7 +44,7 @@ export const Play: React.FC<PlayProps> = ({
             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
         </a> Home
-    </button>
+    </button> */}
 {/* start playing button */}
 {/*     <button className = "btn">
       <a>
@@ -60,6 +60,8 @@ export const Play: React.FC<PlayProps> = ({
   </button> */}
       {/* Play screen cards */}
       <div className="form-control items-center">
+
+      
 
       {/* Player Card */}
       <div className="card bg-base-100 shadow-xl mb-3">
@@ -115,8 +117,41 @@ export const Play: React.FC<PlayProps> = ({
         </div>
       </div>
 
-      </div>
+   
 
+{/*       <div className="card bg-base-100 shadow-xl mb-3 items-center">
+        WHERE IS THIS DIV?!?!
+        <div className="card-body p-3 overflow-x-hidden mb3">
+        <h3 className="card-title">
+                       End Game
+                    </h3>
+        </div>
+        <div>
+                {
+                  currentPlayers.map(x => (
+                      <button
+                          key={x.name}
+                          className="btn btn-outline mb-3 ml-3 flex-nowrap overflow-hidden"
+                          onClick={() => {
+                              addNewGameResult({
+                                  startTime: startTimeState,
+                                  endTime: new Date().toISOString(),
+                                  winner: x.name,
+                                  players: currentPlayers.map(y => y.name),
+                              });
+                              nav(-2);
+                          }}
+                      >
+                          <div
+                              className="text-nowrap">
+                              {x.name} Won
+                          </div>                
+                      </button>
+                    ))
+                }
+                </div>
+        </div> */}
+        </div>
           {/* Game Over button */}
     <button className = "btn btn-warning"
         onClick={() => nav(-2)}>

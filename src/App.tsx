@@ -100,9 +100,11 @@ const router = createHashRouter(
   return (
     <div className="App">
 
+    {AppTitle}
+
     <div className="navbar bg-base-200 items-center text-center">
       <span className="text-2xl font-bold text-center">
-        {AppTitle}
+        {title}
       </span>
       </div>
 

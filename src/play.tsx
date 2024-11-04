@@ -18,6 +18,7 @@ import {
  interface PlayProps {
   addNewGameResult: (gr: GameResult) => void;
   currentPlayers: CurrentPlayer[];
+  //currentCharacter: currentCharacter[];
   setTitle:(t:string) => void;
  }
 
@@ -33,6 +34,10 @@ export const Play: React.FC<PlayProps> = ({
   );
 
     const nav = useNavigate();
+
+ 
+
+
     const [startTimeState, setStartTimeState] = useState(new Date().toISOString());
 
     return(
@@ -69,9 +74,6 @@ export const Play: React.FC<PlayProps> = ({
       {/* Player Card */}
       <div className="card bg-base-100 shadow-xl mb-3">
         <div className="card-body p-3 overflow-x-hidden mb-3">
-           <h3 className="card-title">
-                        Character Card
-                    </h3>
               <div>
                 <span>
                 {
@@ -80,14 +82,23 @@ export const Play: React.FC<PlayProps> = ({
               <div className="form-control"
               key={x.name}>
                  <span className="flex label-text">
-                    {x.name}
+                    {x.name} <br/>
                   </span>
+                 <a className="text-sm font-small"> Character: 
+                  {/* {x.selectedCharacter} */} </a>
+                  <br/>
+              <span className="text-sm font-small">
+                Actions Points: 
+              </span>
+               
+                  <div className="divider lg:divider-vertical"></div>
               </div>
             )
           )
          } 
-                </span>
-              
+                </span> 
+
+        
               </div>
 
         </div>
@@ -109,9 +120,12 @@ export const Play: React.FC<PlayProps> = ({
              )
            )
           } 
-                 </select>
+          </select>
+
+
          </div>
         </div>
+      
       </div>
 
       {/* Boss Card */}

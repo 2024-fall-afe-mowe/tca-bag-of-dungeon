@@ -56,7 +56,7 @@ export const Settings: React.FC<SetupProps> = ({
     previousPlayers.map(x => ({
         name: x,
         checked: false,
-        character: selectedCharacter
+        character: undefined
      }))
 );
 
@@ -82,7 +82,7 @@ export const Settings: React.FC<SetupProps> = ({
           {
             name: newPlayerName,
             checked: true,
-            character: selectedCharacter
+            character: undefined
           }
         ].sort(
           (a,b) => a.name.toLocaleUpperCase().localeCompare(b.name.toUpperCase())
@@ -92,7 +92,7 @@ export const Settings: React.FC<SetupProps> = ({
 
   };
 
-  const getCharacterData = () => {
+/*   const getCharacterData = () => {
     availableCharacter.map(
       x => (
         x.characterName, 
@@ -103,21 +103,24 @@ export const Settings: React.FC<SetupProps> = ({
         x.specialNotes
       )
     )
-  }
+  }; */
+
 
   const playersChosen = 
   availablePlayers.filter(x => x.checked).length <= 4 && 
   availablePlayers.filter(x => x.checked).length > 0
   ;
 
-const setCharacter = (playerName: string, character: Character[]) => setAvailablePlayers(
+
+/* const setCharacter = (playerName: string, character: Character[]) => setAvailablePlayers(
   availablePlayers.map(x => ({
     ...x, 
     selectedCharacter: x.name === playerName
     ? character
     : x.character
-  }))
+  })
 )
+) */
 
     return(
   <div>
@@ -226,7 +229,8 @@ const setCharacter = (playerName: string, character: Character[]) => setAvailabl
                       ? !y.checked
                       : y.checked
                     }))
-                  )}
+                  )
+                }
                   />
 
                   <span className="flex label-text">
@@ -254,16 +258,14 @@ const setCharacter = (playerName: string, character: Character[]) => setAvailabl
             availableCharacter.map(
               x => (
                 <details className="collapse bg-base-200">
-                  <summary className="collapse-title text-l font-medium">Character Name: {x.characterName}</summary>
+                  <summary className="collapse-title text-l font-medium">{x.characterName}</summary>
                 <div className="collapse-content items-justify">
-
                 <p>Health: {x.health} </p>
                 <p>Combat Dice: {x.combatDice} </p>
                 <p>Combat Modifier: {x.combatModifier} </p>
                 <p>Special Skills: {x.specialSkill}</p>    
                 <p>Special Notes: {x.specialNotes}</p>
-
-                </div>
+               </div>             
                 </details>
               )
             )

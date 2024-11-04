@@ -19,13 +19,14 @@ import {
  interface SetupProps {
   previousPlayers: string[];
   setCurrentPlayers: (players: CurrentPlayer[]) => void;
+  setCurrentCharacter: (character: Character[]) => void;
   setTitle:(t:string) => void;
 }
 
  interface availablePlayers {
   name: string;
   checked: boolean;
-  character: Character;
+  character: Character
  }
 
 
@@ -41,16 +42,25 @@ export const Settings: React.FC<SetupProps> = ({
   );
 
   const nav = useNavigate();
+  const [selectedCharacter, setCurrentCharacter] = useState(
+    availableCharacter.map(
+      x => ({
+        characterName: x,
+        checked: false,
+      })
+    )
+  );
 
   const [availablePlayers, setAvailablePlayers] = useState(
     previousPlayers.map(x => ({
         name: x,
         checked: false,
-        character: undefined
-    }))
+        character: selectedCharacter
+     }))
 );
 
   const [newPlayerName, setNewPlayerName] = useState("");
+
 
   const validationDialogRef = useRef<HTMLDialogElement | null> (null);
 
@@ -71,7 +81,7 @@ export const Settings: React.FC<SetupProps> = ({
           {
             name: newPlayerName,
             checked: true,
-            character: undefined
+            character: selectedCharacter
           }
         ].sort(
           (a,b) => a.name.toLocaleUpperCase().localeCompare(b.name.toUpperCase())
@@ -81,21 +91,14 @@ export const Settings: React.FC<SetupProps> = ({
 
   };
 
-  const playersAndCharacterChosen = 
-  availablePlayers.filter(x => x.checked).length === 1
-  && availablePlayers.filter(x => x.checked && x.character).length === 1;
-
- 
-/*  const setPlayerCharacter = (playerName: string, character: Character) => setAvailablePlayers(
+const setCharacter = (playerName: string, character: Character[]) => setAvailablePlayers(
   availablePlayers.map(x => ({
     ...x, 
-    character: x.name === playerName
+    selectedCharacter: x.name === playerName
     ? character
     : x.character
   }))
-); */
-
-
+)
 
     return(
   <div>
@@ -124,7 +127,23 @@ export const Settings: React.FC<SetupProps> = ({
 {/* play button */}
     <button className = "btn btn-accent"
   //  disabled={!playersAndCharacterChosen}
-    onClick={() => nav("../play")}>
+    onClick={() => {
+      setCurrentPlayers(
+        availablePlayers.filter(
+          x => x.checked
+        ).map(
+          x => ({
+            name: x.name, 
+            /* setCharacter(
+              characterName: x.characterName,
+        )     */
+          })
+        )
+      );
+      nav("../play")
+    }}
+    >
+    
       <a>
       <svg xmlns="http://www.w3.org/2000/svg"  
       x="0px" y="0px" width="512px" height="392.34px"  
@@ -183,10 +202,20 @@ export const Settings: React.FC<SetupProps> = ({
               key={x.name}>
                 <label className="label cursor-pointer">
                   <input type="checkbox" className="checkbox" 
+                  checked={x.checked}
+                  onChange={() => setAvailablePlayers(
+                    availablePlayers.map( y => ({
+                      ...y,
+                      checked: y.name === x.name
+                      ? !y.checked
+                      : y.checked
+                    }))
+                  )}
                   />
 
                   <span className="flex label-text">
                     {x.name}
+  
                   </span>
 
                 </label>
@@ -205,19 +234,25 @@ export const Settings: React.FC<SetupProps> = ({
                         Choose Your Character
            </h3>
         <div className="card-body p-3 overflow-x-hidden mb-3">
-                 
-                <select className="select select-bordered w-full max-w-xs">
-                <option disabled selected>Choose your Character</option>
+
+   <select className="select select-bordered w-full max-w-xs">
+                <option selected
+                >Choose your Character</option>
                 {
           availableCharacter.map(
             x => (
               <option> 
-              {x.name} </option>
-
+              {x.characterName} </option>
             )
           )
          } 
-                </select>
+                </select> 
+                <button
+                className="btn btn-primary"
+                
+                >
+                  Choose 
+                </button>
         </div>
         </div>
       </div>

@@ -16,7 +16,8 @@ import {
     getLeaderboard,
     getPreviousPlayers, 
     CurrentPlayer, 
-    getGeneralFacts
+    getGeneralFacts,
+    Character
 } from "./game-results";
 
 const dummyGameResults: GameResult[] = [
@@ -60,6 +61,7 @@ const [gameResults, setGameResults] = useState(dummyGameResults);
 const [title, setTitle] = useState(AppTitle);
 
 const [currentPlayer, setCurrentPlayers] = useState<CurrentPlayer[]>([]);
+const [currentCharacter, setCurrentCharacter] = useState<Character[]>([]);
 
 const addNewGameResult = (newResult: GameResult) => setGameResults([
   ...gameResults,
@@ -89,6 +91,7 @@ const router = createHashRouter(
     element: <Settings
     previousPlayers={getPreviousPlayers(gameResults)}
     setCurrentPlayers={setCurrentPlayers}
+    setCurrentCharacter={setCurrentCharacter}
     setTitle={setTitle}
  
     />,

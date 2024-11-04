@@ -30,26 +30,27 @@ export type BossData = {
     specialNotes: string;
 };
 
+
 export type Character = {
-    name: string;
+    characterName: string;
     health: number;
     combatDice: number;
     combatModifier: number;
     specialSkill: string;
     specialNotes: string
-}
+};
 
 export type Monster = {
         monsterName: string;
         health: number;
         combatDice: number;
         combatModifier: number;
-}
+};
 {/* end of game data exports */}
 
 export type CurrentPlayer = {
     name: string;
-    character: Character;
+//    characterName: Character;
 };
 
 export type GeneralFactsDisplay = {
@@ -179,8 +180,9 @@ export const bossType: BossData[] = [
 ];
 
 export const availableCharacter: Character[] = [
+
     {
-    name: "Tamara the Fighter",
+    characterName: "Tamara the Fighter",
     health: 10,
     combatDice: 2,
     combatModifier: 2,
@@ -188,7 +190,7 @@ export const availableCharacter: Character[] = [
     specialNotes: "Fearless, fast, and skilled with her blade, Tamara is her guild's finest sword fighter."
     },
     {
-    name: "Sirrus the Fighter",
+    characterName: "Sirrus the Fighter",
     health: 10,
     combatDice: 2,
     combatModifier: 2,
@@ -196,7 +198,7 @@ export const availableCharacter: Character[] = [
     specialNotes: "Sirrus is a skilled warrior and renowned blademaster, brace and capable in battle."
     },
     {
-    name: "Galhorn the Elf",
+    characterName: "Galhorn the Elf",
     health: 9,
     combatDice: 2,
     combatModifier: 1,
@@ -204,7 +206,7 @@ export const availableCharacter: Character[] = [
     specialNotes: "Galhorn is a master archer, keen-eyed and quick. He is a former Royal Protector at Calen Taur."
     },
     {  
-    name: "Alendra the Elf",
+    characterName: "Alendra the Elf",
     health: 9,
     combatDice: 2,
     combatModifier: 1,
@@ -212,7 +214,7 @@ export const availableCharacter: Character[] = [
     specialNotes: "Alendra is fleet-footed and a skilled archer. She is a former Calen Taur watch commander."
     }, 
     {  
-    name: "Marria the Dwarf",
+    characterName: "Marria the Dwarf",
     health: 12,
     combatDice: 2,
     combatModifier: 3,
@@ -220,7 +222,7 @@ export const availableCharacter: Character[] = [
     specialNotes: "Stout-hearted and steadfast in battle, Marria's axe skills are legendary among her clan."
     }, 
     {  
-    name: "Duric the Dwarf",
+    characterName: "Duric the Dwarf",
     health: 12,
     combatDice: 2,
     combatModifier: 3,
@@ -228,7 +230,7 @@ export const availableCharacter: Character[] = [
     specialNotes: "Enemies too many to count have fallen at the axe of Duric the Dwarf, former head of the King's Guard."
     }, 
     {  
-    name: "Tarak the Healer",
+    characterName: "Tarak the Healer",
     health: 9,
     combatDice: 2,
     combatModifier: 0,
@@ -236,7 +238,7 @@ export const availableCharacter: Character[] = [
     specialNotes: "Tarak learned his art in lands far and wide. There are few wounds and woes he cannot mend."
     }, 
     {  
-    name: "Rill the Healer",
+    characterName: "Rill the Healer",
     health: 9,
     combatDice: 2,
     combatModifier: 0,

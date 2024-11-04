@@ -42,11 +42,12 @@ export const Settings: React.FC<SetupProps> = ({
   );
 
   const nav = useNavigate();
+
   const [selectedCharacter, setCurrentCharacter] = useState(
     availableCharacter.map(
       x => ({
         characterName: x,
-        checked: false,
+        checked: true,
       })
     )
   );
@@ -91,6 +92,24 @@ export const Settings: React.FC<SetupProps> = ({
 
   };
 
+  const getCharacterData = () => {
+    availableCharacter.map(
+      x => (
+        x.characterName, 
+        x.health, 
+        x.combatDice,
+        x.combatModifier,
+        x.specialSkill,
+        x.specialNotes
+      )
+    )
+  }
+
+  const playersChosen = 
+  availablePlayers.filter(x => x.checked).length <= 4 && 
+  availablePlayers.filter(x => x.checked).length > 0
+  ;
+
 const setCharacter = (playerName: string, character: Character[]) => setAvailablePlayers(
   availablePlayers.map(x => ({
     ...x, 
@@ -126,17 +145,14 @@ const setCharacter = (playerName: string, character: Character[]) => setAvailabl
     </button>
 {/* play button */}
     <button className = "btn btn-accent"
-  //  disabled={!playersAndCharacterChosen}
+    disabled={!playersChosen}
     onClick={() => {
       setCurrentPlayers(
         availablePlayers.filter(
           x => x.checked
         ).map(
           x => ({
-            name: x.name, 
-            /* setCharacter(
-              characterName: x.characterName,
-        )     */
+            name: x.name     
           })
         )
       );
@@ -214,8 +230,7 @@ const setCharacter = (playerName: string, character: Character[]) => setAvailabl
                   />
 
                   <span className="flex label-text">
-                    {x.name}
-  
+                    {x.name} 
                   </span>
 
                 </label>
@@ -229,30 +244,48 @@ const setCharacter = (playerName: string, character: Character[]) => setAvailabl
       </div>
       
       {/* choose character card */}
-       <div className="flex card bg-base-100 shadow-xl mb-3">
-      <h3 className="card-title mb-2 px-2">
+       <div className="flex card bg-base-100 shadow-xl mb-3 items-center">
+       <h3 className="card-title mb-2 px-2">
                         Choose Your Character
            </h3>
-        <div className="card-body p-3 overflow-x-hidden mb-3">
+        <div className="card-body p-3 overflow-x-hidden mb-3"> 
+         <div>
+          {
+            availableCharacter.map(
+              x => (
+                <details className="collapse bg-base-200">
+                  <summary className="collapse-title text-l font-medium">Character Name: {x.characterName}</summary>
+                <div className="collapse-content items-justify">
 
-   <select className="select select-bordered w-full max-w-xs">
+                <p>Health: {x.health} </p>
+                <p>Combat Dice: {x.combatDice} </p>
+                <p>Combat Modifier: {x.combatModifier} </p>
+                <p>Special Skills: {x.specialSkill}</p>    
+                <p>Special Notes: {x.specialNotes}</p>
+
+                </div>
+                </details>
+              )
+            )
+          }
+        </div>
+   {/* <select className="select select-bordered w-full max-w-xs">
                 <option selected
                 >Choose your Character</option>
                 {
           availableCharacter.map(
             x => (
               <option> 
-              {x.characterName} </option>
+                <div
+                className="card-body p-3 overflow-x-hidden-mb-3">
+              <h3 className="card-title mb-2 px-2">{x.characterName}</h3>
+              <span></span>{x.health}
+              </div>
+               </option>
             )
           )
-         } 
-                </select> 
-                <button
-                className="btn btn-primary"
-                
-                >
-                  Choose 
-                </button>
+         } </select>  */}
+
         </div>
         </div>
       </div>

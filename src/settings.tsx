@@ -33,6 +33,7 @@ import {
 export const Settings: React.FC<SetupProps> = ({
   previousPlayers,
   setCurrentPlayers,
+  setCurrentCharacter,
   setTitle
 }) => {
 
@@ -43,7 +44,7 @@ export const Settings: React.FC<SetupProps> = ({
 
   const nav = useNavigate();
 
-  const [selectedCharacter, setCurrentCharacter] = useState(
+  const [selectedCharacter, setAvailableCharacter] = useState(
     availableCharacter.map(
       x => ({
         characterName: x,
@@ -108,11 +109,14 @@ export const Settings: React.FC<SetupProps> = ({
 
   const playersChosen = 
   availablePlayers.filter(x => x.checked).length <= 4 && 
-  availablePlayers.filter(x => x.checked).length > 0
+  availablePlayers.filter(x => x.checked).length > 0 &&
+  availableCharacter.filter(x => x.checked).length <= 4 
   ;
 
 
-/* const setCharacter = (playerName: string, character: Character[]) => setAvailablePlayers(
+ const setCharacter = (
+  playerName: string, character: Character[]
+) => setAvailablePlayers(
   availablePlayers.map(x => ({
     ...x, 
     selectedCharacter: x.name === playerName
@@ -120,7 +124,7 @@ export const Settings: React.FC<SetupProps> = ({
     : x.character
   })
 )
-) */
+) 
 
     return(
   <div>
@@ -155,7 +159,7 @@ export const Settings: React.FC<SetupProps> = ({
           x => x.checked
         ).map(
           x => ({
-            name: x.name     
+            name: x.name,
           })
         )
       );
@@ -230,6 +234,8 @@ export const Settings: React.FC<SetupProps> = ({
                       : y.checked
                     }))
                   )
+                  
+
                 }
                   />
 
@@ -257,14 +263,57 @@ export const Settings: React.FC<SetupProps> = ({
           {
             availableCharacter.map(
               x => (
-                <details className="collapse bg-base-200">
-                  <summary className="collapse-title text-l font-medium">{x.characterName}</summary>
-                <div className="collapse-content items-justify">
-                <p>Health: {x.health} </p>
-                <p>Combat Dice: {x.combatDice} </p>
-                <p>Combat Modifier: {x.combatModifier} </p>
-                <p>Special Skills: {x.specialSkill}</p>    
-                <p>Special Notes: {x.specialNotes}</p>
+                <details className="collapse bg-base-200"  
+                key= {x.characterName} >
+                  <summary className="collapse-title text-l font-medium">
+                    <span>{ x.characterName}  </span>
+
+
+                  <label className="label cursor-pointer">
+                    Assign
+                    <input type="checkbox" className="checkbox"
+                    
+                    checked={x.checked}
+/*                   onChange={() => setCharacter(
+                    availableCharacter.map( y => ({
+                      ...y,
+                      checked: y.characterName === x.characterName
+                      ? !y.checked
+                      : y.checked
+                    })),
+
+                  ) 
+                }*/
+                />
+
+                  </label>
+                    </summary>
+                <div className="card shadow-xl mb-3 collapse-content">
+                  <table className="table table-zebra">
+                    <tbody>
+                      <tr>
+                        <td>Health:</td>
+                        <th> {x.health} </th>
+                      </tr>
+                      <tr>
+                        <td>Combat Dice:</td>
+                        <th> {x.combatDice} </th>
+                      </tr>
+                      <tr>
+                        <td>Combat Modifier:</td>
+                        <th> {x.combatModifier} </th>
+                      </tr>
+                      <tr>
+                        <td>Special Skills:</td>
+                        <th> {x.specialSkill} </th>
+                      </tr>
+                      <tr>
+                        <td>Special Notes:</td>
+                        <th> {x.specialNotes} </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                
                </div>             
                 </details>
               )

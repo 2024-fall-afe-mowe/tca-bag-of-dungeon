@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { 
+  SetStateAction,
   useEffect,
   useRef, 
   useState 
@@ -35,10 +36,75 @@ export const Play: React.FC<PlayProps> = ({
 
     const nav = useNavigate();
 
- 
+     const [startTimeState, setStartTimeState] = useState(new Date().toISOString());
+     const [lifeCounter, updateLifeCounter] = useState(3); //always base of 3
+     const [hPCounter, updateHPCounter] = useState(9); //range from 9 to 12
+     const [counter, updateCounter] = useState(5); //range from 4 to 6
+     const [playerRoll, setPlayerRoll] = useState(0); //cannot be more than 2d6 dice, so no more than 12 without modifiers
+     const [modifiedCombat, setModifier] = useState(0);
+
+      const actionPointIncrease = () => {
+          updateCounter(counter + 1)
+      };
+
+      const actionPointDecrease = () => {
+        updateCounter(counter <= 0 ? 0 : counter -1)
+      };
+
+      const resetAP = () => {
+        updateCounter(5);
+      };
+
+      const hPIncrease = () => {
+          updateHPCounter(counter + 1)
+      };
+
+      const hPDecrease = () => {
+        updateHPCounter(counter <= 0 ? 0 : counter -1)
+      };
+
+      const resetHP = () => {
+        updateHPCounter(9);
+      };
+
+      const lifeIncrease = () => {
+        updateLifeCounter(counter + 1)
+      };
+
+      const lifeDecrease = () => {
+        updateLifeCounter(counter <= 0 ? 0 : counter -1)
+      };
+
+      const resetLives = () => {
+        updateLifeCounter(9);
+      };
+
+      
+      const playerDiceMath = (min: number, max: number) => {
+        return Math.floor(Math.random()
+        * (max - min + 1)) + min;
+      };
+
+      const playerDiceRoll = () => {
+        setPlayerRoll(playerDiceMath(1, 12));
+      };
+
+//Calculations Start
+      const getModifiers = (event: { target: { value: SetStateAction<number>; }; }) => {
+        setModifier(event.target.value);
+        console.log(setModifier);
+      }
+
+      const combatRollMath = (a: number,b: number) => {
+          return +a + +b;
+      }
+
+      const calculateRoll = () => {
+        
+
+      }
 
 
-    const [startTimeState, setStartTimeState] = useState(new Date().toISOString());
 
     return(
 
@@ -69,11 +135,11 @@ export const Play: React.FC<PlayProps> = ({
 {/* start playing button */}
 
       {/* Play screen cards */}
-      <div className="form-control items-center">
+      <div className="form-control flex">
 
       {/* Player Card */}
       <div className="card bg-base-100 shadow-xl mb-3">
-        <div className="card-body p-3 overflow-x-hidden mb-3">
+        <div className="card-body p-3 overflow-x-hidden mb-3" >
               <div>
                 <span>
                 {
@@ -81,18 +147,101 @@ export const Play: React.FC<PlayProps> = ({
             x => (
               <div className="form-control"
               key={x.name}>
+                
                  <span className="flex label-text">
                     {x.name} <br/>
                   </span>
-                 <a className="text-sm font-small"> Character: 
-                  {/* {x.selectedCharacter} */} </a>
+                  
+                  <div className="flex font-small ">
+                    <div className="items-center">
+                      <span> 
+                         <a className="text-sm font-small">Lives: <br /> </a>
+                         </span>
+                    <button className="btn btn-outline btn-sm"
+                    onClick={lifeDecrease}
+                    > -
+                    </button>
+                    <span className="items-center"> {lifeCounter} </span>
+                    <button className="btn btn-outline btn-sm"
+                    onClick= {lifeIncrease}
+                    >+
+                    </button>
+
+                    <br />
+
+                    <span>
+                      <button className="btn btn-outline btn-accent"
+                      onClick={resetLives}>
+                        Reset Lives
+                      </button>
+                    </span>
+
+                    </div>
+                  </div>
+
                   <br/>
-              <span className="text-sm font-small">
-                Actions Points: 
-              </span>
+    
+                  <div className="flex font-small">
+                    <div className="items-center">
+                      <span> 
+                         <a className="text-sm font-small">Health Points: <br /> </a>
+                         </span>
+                    <button className="btn btn-outline btn-sm"
+                    onClick={hPDecrease}
+                    > -
+                    </button>
+                    <span className="items-center"> {hPCounter} </span>
+                    <button className="btn btn-outline btn-sm"
+                    onClick= {hPIncrease}
+                    >+
+                    </button>
+
+                    <br />
+
+                    <span>
+                      <button className="btn btn-outline btn-accent"
+                      onClick={resetHP}>
+                        Reset Health
+                      </button>
+                    </span>
+
+                    </div>
+                  </div>
+
+                  <br/>
+
+                  <div className="flex font-small">
+                    <div className="items-center">
+                      <span> 
+                         <a className="text-sm font-small">Action Points: <br /> </a>
+                         </span>
+                    <button className="btn btn-outline btn-sm"
+                    onClick={actionPointDecrease}
+                    > -
+                    </button>
+                    <span className="items-center"> {counter} </span>
+                    <button className="btn btn-outline btn-sm"
+                    onClick= {actionPointIncrease}
+                    >+
+                    </button>
+
+                    <br />
+
+                    <span>
+                      <button className="btn btn-outline btn-accent"
+                      onClick={resetAP}>
+                        Reset Points
+                      </button>
+                    </span>
+
+                    </div>
+                  </div>
+                 
+
                
                   <div className="divider lg:divider-vertical"></div>
               </div>
+  
             )
           )
          } 
@@ -103,6 +252,31 @@ export const Play: React.FC<PlayProps> = ({
 
         </div>
       </div>
+
+         {/* Player Rolls */}
+
+         <div className="flex form-control">
+            <span> Player Dice </span>
+            <button className="btn btn-outline btn-success"
+            onClick={playerDiceRoll}
+            >Roll</button>
+            You rolled: {playerRoll} 
+
+            <span><br />
+            <label>
+              Combat Modifiers:    
+              <input name="enteredModifier" defaultValue="0" onChange={() => getModifiers} />
+            </label>
+            
+            <button className="btn btn-outline btn-success btn-sm"
+            onClick={calculateRoll}
+            >Calculate</button>
+            </span>
+            Your Score: {modifiedCombat}
+
+         </div>
+
+
 
       {/* Monster Card */}
       <div className="card bg-base-100 shadow-xl mb-3">
@@ -115,12 +289,15 @@ export const Play: React.FC<PlayProps> = ({
                  {
            monsterList.map(
              x => (
-               <option> 
+               <option 
+              // onChange={ }
+               > 
                {x.monsterName} </option>
              )
            )
           } 
           </select>
+        
 
 
          </div>

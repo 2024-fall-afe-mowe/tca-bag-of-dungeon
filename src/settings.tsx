@@ -19,19 +19,21 @@ import {
  interface SetupProps {
   previousPlayers: string[];
   setCurrentPlayers: (players: CurrentPlayer[]) => void;
+  setCurrentCharacter: (character: Character[]) => void;
   setTitle:(t:string) => void;
 }
 
  interface availablePlayers {
   name: string;
   checked: boolean;
-  character: Character;
+  character: Character
  }
 
 
 export const Settings: React.FC<SetupProps> = ({
   previousPlayers,
   setCurrentPlayers,
+  setCurrentCharacter,
   setTitle
 }) => {
 
@@ -42,15 +44,25 @@ export const Settings: React.FC<SetupProps> = ({
 
   const nav = useNavigate();
 
+  const [selectedCharacter, setAvailableCharacter] = useState(
+    availableCharacter.map(
+      x => ({
+        characterName: x,
+        checked: true,
+      })
+    )
+  );
+
   const [availablePlayers, setAvailablePlayers] = useState(
     previousPlayers.map(x => ({
         name: x,
         checked: false,
         character: undefined
-    }))
+     }))
 );
 
   const [newPlayerName, setNewPlayerName] = useState("");
+
 
   const validationDialogRef = useRef<HTMLDialogElement | null> (null);
 
@@ -81,21 +93,38 @@ export const Settings: React.FC<SetupProps> = ({
 
   };
 
-  const playersAndCharacterChosen = 
-  availablePlayers.filter(x => x.checked).length === 1
-  && availablePlayers.filter(x => x.checked && x.character).length === 1;
+/*   const getCharacterData = () => {
+    availableCharacter.map(
+      x => (
+        x.characterName, 
+        x.health, 
+        x.combatDice,
+        x.combatModifier,
+        x.specialSkill,
+        x.specialNotes
+      )
+    )
+  }; */
 
- 
-/*  const setPlayerCharacter = (playerName: string, character: Character) => setAvailablePlayers(
+
+  const playersChosen = 
+  availablePlayers.filter(x => x.checked).length <= 4 && 
+  availablePlayers.filter(x => x.checked).length > 0 &&
+  availableCharacter.filter(x => x.checked).length <= 4 
+  ;
+
+
+ const setCharacter = (
+  playerName: string, character: Character[]
+) => setAvailablePlayers(
   availablePlayers.map(x => ({
     ...x, 
-    character: x.name === playerName
+    selectedCharacter: x.name === playerName
     ? character
     : x.character
-  }))
-); */
-
-
+  })
+)
+) 
 
     return(
   <div>
@@ -123,8 +152,21 @@ export const Settings: React.FC<SetupProps> = ({
     </button>
 {/* play button */}
     <button className = "btn btn-accent"
-  //  disabled={!playersAndCharacterChosen}
-    onClick={() => nav("../play")}>
+    disabled={!playersChosen}
+    onClick={() => {
+      setCurrentPlayers(
+        availablePlayers.filter(
+          x => x.checked
+        ).map(
+          x => ({
+            name: x.name,
+          })
+        )
+      );
+      nav("../play")
+    }}
+    >
+    
       <a>
       <svg xmlns="http://www.w3.org/2000/svg"  
       x="0px" y="0px" width="512px" height="392.34px"  
@@ -183,10 +225,22 @@ export const Settings: React.FC<SetupProps> = ({
               key={x.name}>
                 <label className="label cursor-pointer">
                   <input type="checkbox" className="checkbox" 
+                  checked={x.checked}
+                  onChange={() => setAvailablePlayers(
+                    availablePlayers.map( y => ({
+                      ...y,
+                      checked: y.name === x.name
+                      ? !y.checked
+                      : y.checked
+                    }))
+                  )
+                  
+
+                }
                   />
 
                   <span className="flex label-text">
-                    {x.name}
+                    {x.name} 
                   </span>
 
                 </label>
@@ -200,24 +254,89 @@ export const Settings: React.FC<SetupProps> = ({
       </div>
       
       {/* choose character card */}
-       <div className="flex card bg-base-100 shadow-xl mb-3">
-      <h3 className="card-title mb-2 px-2">
+       <div className="flex card bg-base-100 shadow-xl mb-3 items-center">
+       <h3 className="card-title mb-2 px-2">
                         Choose Your Character
            </h3>
-        <div className="card-body p-3 overflow-x-hidden mb-3">
-                 
-                <select className="select select-bordered w-full max-w-xs">
-                <option disabled selected>Choose your Character</option>
+        <div className="card-body p-3 overflow-x-hidden mb-3"> 
+         <div>
+          {
+            availableCharacter.map(
+              x => (
+                <details className="collapse bg-base-200"  
+                key= {x.characterName} >
+                  <summary className="collapse-title text-l font-medium">
+                    <span>{ x.characterName}  </span>
+
+
+                  <label className="label cursor-pointer">
+                    Assign
+                    <input type="checkbox" className="checkbox"
+                    
+                    checked={x.checked}
+/*                   onChange={() => setCharacter(
+                    availableCharacter.map( y => ({
+                      ...y,
+                      checked: y.characterName === x.characterName
+                      ? !y.checked
+                      : y.checked
+                    })),
+
+                  ) 
+                }*/
+                />
+
+                  </label>
+                    </summary>
+                <div className="card shadow-xl mb-3 collapse-content">
+                  <table className="table table-zebra">
+                    <tbody>
+                      <tr>
+                        <td>Health:</td>
+                        <th> {x.health} </th>
+                      </tr>
+                      <tr>
+                        <td>Combat Dice:</td>
+                        <th> {x.combatDice} </th>
+                      </tr>
+                      <tr>
+                        <td>Combat Modifier:</td>
+                        <th> {x.combatModifier} </th>
+                      </tr>
+                      <tr>
+                        <td>Special Skills:</td>
+                        <th> {x.specialSkill} </th>
+                      </tr>
+                      <tr>
+                        <td>Special Notes:</td>
+                        <th> {x.specialNotes} </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+               </div>             
+                </details>
+              )
+            )
+          }
+        </div>
+   {/* <select className="select select-bordered w-full max-w-xs">
+                <option selected
+                >Choose your Character</option>
                 {
           availableCharacter.map(
             x => (
               <option> 
-              {x.name} </option>
-
+                <div
+                className="card-body p-3 overflow-x-hidden-mb-3">
+              <h3 className="card-title mb-2 px-2">{x.characterName}</h3>
+              <span></span>{x.health}
+              </div>
+               </option>
             )
           )
-         } 
-                </select>
+         } </select>  */}
+
         </div>
         </div>
       </div>

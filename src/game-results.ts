@@ -30,26 +30,28 @@ export type BossData = {
     specialNotes: string;
 };
 
+
 export type Character = {
-    name: string;
+    characterName: string;
     health: number;
     combatDice: number;
     combatModifier: number;
     specialSkill: string;
-    specialNotes: string
-}
+    specialNotes: string;
+    checked: undefined
+};
 
 export type Monster = {
         monsterName: string;
         health: number;
         combatDice: number;
         combatModifier: number;
-}
+};
 {/* end of game data exports */}
 
 export type CurrentPlayer = {
     name: string;
-    character: Character;
+ //   characterName: Character;
 };
 
 export type GeneralFactsDisplay = {
@@ -58,6 +60,7 @@ export type GeneralFactsDisplay = {
     , shortestGame: string
     , longestGame: string
 };
+
 
 export const getLeaderboard = (
     results: GameResult[]
@@ -179,69 +182,78 @@ export const bossType: BossData[] = [
 ];
 
 export const availableCharacter: Character[] = [
+
     {
-    name: "Tamara the Fighter",
+    characterName: "Tamara the Fighter",
     health: 10,
     combatDice: 2,
     combatModifier: 2,
     specialSkill: "Lethal Blow: Once per game you may double your combat roll result.",
-    specialNotes: "Fearless, fast, and skilled with her blade, Tamara is her guild's finest sword fighter."
+    specialNotes: "Fearless, fast, and skilled with her blade, Tamara is her guild's finest sword fighter.",
+    checked: undefined
     },
     {
-    name: "Sirrus the Fighter",
+    characterName: "Sirrus the Fighter",
     health: 10,
     combatDice: 2,
     combatModifier: 2,
     specialSkill: "Lethal Blow: Once per game you may double your combat roll result.",
-    specialNotes: "Sirrus is a skilled warrior and renowned blademaster, brace and capable in battle."
+    specialNotes: "Sirrus is a skilled warrior and renowned blademaster, brace and capable in battle.",
+    checked: undefined
     },
     {
-    name: "Galhorn the Elf",
+    characterName: "Galhorn the Elf",
     health: 9,
     combatDice: 2,
     combatModifier: 1,
     specialSkill: "Dead-eye: Inflict an instant kill when you roll a 6 on a bow attack.",
-    specialNotes: "Galhorn is a master archer, keen-eyed and quick. He is a former Royal Protector at Calen Taur."
+    specialNotes: "Galhorn is a master archer, keen-eyed and quick. He is a former Royal Protector at Calen Taur.",
+    checked: undefined
     },
     {  
-    name: "Alendra the Elf",
+    characterName: "Alendra the Elf",
     health: 9,
     combatDice: 2,
     combatModifier: 1,
     specialSkill: "Dead-eye: Inflict an instant kill when you roll a 6 on a bow attack.",
-    specialNotes: "Alendra is fleet-footed and a skilled archer. She is a former Calen Taur watch commander."
+    specialNotes: "Alendra is fleet-footed and a skilled archer. She is a former Calen Taur watch commander.",
+    checked: undefined
     }, 
     {  
-    name: "Marria the Dwarf",
+    characterName: "Marria the Dwarf",
     health: 12,
     combatDice: 2,
     combatModifier: 3,
     specialSkill: "Brace: Once per game you may block one attack, taking no damage.",
-    specialNotes: "Stout-hearted and steadfast in battle, Marria's axe skills are legendary among her clan."
+    specialNotes: "Stout-hearted and steadfast in battle, Marria's axe skills are legendary among her clan.",
+    checked: undefined
     }, 
     {  
-    name: "Duric the Dwarf",
+    characterName: "Duric the Dwarf",
     health: 12,
     combatDice: 2,
     combatModifier: 3,
     specialSkill: "Brace: Once per game you may block one attack, taking no damage.",
-    specialNotes: "Enemies too many to count have fallen at the axe of Duric the Dwarf, former head of the King's Guard."
+    specialNotes: "Enemies too many to count have fallen at the axe of Duric the Dwarf, former head of the King's Guard.",
+    checked: undefined
     }, 
     {  
-    name: "Tarak the Healer",
+    characterName: "Tarak the Healer",
     health: 9,
     combatDice: 2,
     combatModifier: 0,
     specialSkill: "Renew: Spend 3 AP to give a character on your tile 2 dice of health. Max 3 heals per game.",
-    specialNotes: "Tarak learned his art in lands far and wide. There are few wounds and woes he cannot mend."
+    specialNotes: "Tarak learned his art in lands far and wide. There are few wounds and woes he cannot mend.",
+    checked: undefined
     }, 
     {  
-    name: "Rill the Healer",
+    characterName: "Rill the Healer",
     health: 9,
     combatDice: 2,
     combatModifier: 0,
     specialSkill: "Renew: Spend 3 AP to give a character on your tile 2 dice of health. Max 3 heals per game.",
-    specialNotes: "Rill is wise in the lore of medicine, a gifted 7th daughter from the line of the healer folk."
+    specialNotes: "Rill is wise in the lore of medicine, a gifted 7th daughter from the line of the healer folk.",
+    checked: undefined
     }
 ]
 

@@ -139,7 +139,8 @@ export const Play: React.FC<PlayProps> = ({
       <div className="form-control flex">
 
       {/* Player Card */}
-      <div className="card bg-base-100 shadow-xl mb-3">
+      <div className="flex flex-col">
+      <div className="card bg-base-100 shadow-xl mb-3 flex-col">
         <div className="card-body p-3 overflow-x-hidden mb-3" >
               <div>
                 <span>
@@ -277,7 +278,7 @@ export const Play: React.FC<PlayProps> = ({
             Your Score: {modifiedCombat}
 
          </div>
-
+         </div>
 
 
       {/* Monster Card */}

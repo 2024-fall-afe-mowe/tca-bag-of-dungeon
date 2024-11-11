@@ -107,7 +107,7 @@ const router = createHashRouter(
         <div className="text-2xl font-bold item-center text-center mb-2">
         {AppTitle}
         </div>
-    <div className=" mb-2">
+    <div className="min-h-screen text-center mb-2">
 
       <span className="text-1xl font-bold">
         <span className="flex flex-col ml-auto">

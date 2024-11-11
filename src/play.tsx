@@ -100,7 +100,8 @@ export const Play: React.FC<PlayProps> = ({
       }
 
       const calculateRoll = () => {
-        
+       
+       console.log(modifiedCombat)
 
       }
 
@@ -157,12 +158,12 @@ export const Play: React.FC<PlayProps> = ({
                       <span> 
                          <a className="text-sm font-small">Lives: <br /> </a>
                          </span>
-                    <button className="btn btn-outline btn-sm"
+                    <button className="btn btn-outline btn-success btn-sm"
                     onClick={lifeDecrease}
                     > -
                     </button>
                     <span className="items-center"> {lifeCounter} </span>
-                    <button className="btn btn-outline btn-sm"
+                    <button className="btn btn-outline btn-success btn-sm"
                     onClick= {lifeIncrease}
                     >+
                     </button>
@@ -170,7 +171,7 @@ export const Play: React.FC<PlayProps> = ({
                     <br />
 
                     <span>
-                      <button className="btn btn-outline btn-accent"
+                      <button className="btn btn-outline btn-success btn-sm"
                       onClick={resetLives}>
                         Reset Lives
                       </button>
@@ -186,12 +187,12 @@ export const Play: React.FC<PlayProps> = ({
                       <span> 
                          <a className="text-sm font-small">Health Points: <br /> </a>
                          </span>
-                    <button className="btn btn-outline btn-sm"
+                    <button className="btn btn-outline btn-success btn-sm"
                     onClick={hPDecrease}
                     > -
                     </button>
                     <span className="items-center"> {hPCounter} </span>
-                    <button className="btn btn-outline btn-sm"
+                    <button className="btn btn-outline btn-success btn-sm"
                     onClick= {hPIncrease}
                     >+
                     </button>
@@ -199,7 +200,7 @@ export const Play: React.FC<PlayProps> = ({
                     <br />
 
                     <span>
-                      <button className="btn btn-outline btn-accent"
+                      <button className="btn btn-outline btn-success btn-sm"
                       onClick={resetHP}>
                         Reset Health
                       </button>
@@ -215,12 +216,12 @@ export const Play: React.FC<PlayProps> = ({
                       <span> 
                          <a className="text-sm font-small">Action Points: <br /> </a>
                          </span>
-                    <button className="btn btn-outline btn-sm"
+                    <button className="btn btn-outline btn-success btn-sm"
                     onClick={actionPointDecrease}
                     > -
                     </button>
                     <span className="items-center"> {counter} </span>
-                    <button className="btn btn-outline btn-sm"
+                    <button className="btn btn-outline btn-success btn-sm"
                     onClick= {actionPointIncrease}
                     >+
                     </button>
@@ -228,7 +229,7 @@ export const Play: React.FC<PlayProps> = ({
                     <br />
 
                     <span>
-                      <button className="btn btn-outline btn-accent"
+                      <button className="btn btn-outline btn-success btn-sm"
                       onClick={resetAP}>
                         Reset Points
                       </button>
@@ -265,7 +266,8 @@ export const Play: React.FC<PlayProps> = ({
             <span><br />
             <label>
               Combat Modifiers:    
-              <input name="enteredModifier" defaultValue="0" onChange={() => getModifiers} />
+              <input name="enteredModifier" defaultValue="0" //onChange={() => getModifiers} 
+              />
             </label>
             
             <button className="btn btn-outline btn-success btn-sm"

@@ -267,7 +267,7 @@ export const Play: React.FC<PlayProps> = ({
             <span><br />
             <label>
               Combat Modifiers:    
-              <input name="enteredModifier" defaultValue="0" //onChange={() => getModifiers} 
+              <input name="enteredModifier" defaultValue="0" onChange={() => getModifiers} 
               />
             </label>
             

@@ -107,9 +107,9 @@ const router = createHashRouter(
         <div className="text-2xl font-bold item-center text-center mb-2">
         {AppTitle}
         </div>
-    <div className="min-h-screen text-center mb-2">
+    <div className="min-h-screen item-center mb-2">
 
-      <span className="text-1xl font-bold">
+      <span className="text-1xl font-bold ml-50">
         <span className="flex flex-col ml-auto">
           {title}
         </span>
@@ -145,6 +145,8 @@ const router = createHashRouter(
         <RouterProvider 
         router={router}
         />
+
+
 
       </span>
 

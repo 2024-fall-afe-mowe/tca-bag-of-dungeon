@@ -49,6 +49,7 @@ export const Settings: React.FC<SetupProps> = ({
       x => ({
         characterName: x,
         checked: true,
+        assignedPlayer: ""
       })
     )
   );
@@ -271,6 +272,32 @@ export const Settings: React.FC<SetupProps> = ({
 
                   <label className="label cursor-pointer">
                     Assign
+
+                  <div className="flex">
+                    {
+                      availablePlayers.filter(
+                        y => y.checked
+                      ).map(
+                        y => (
+                          <button className="btn"
+                          onClick={() => setAvailableCharacter(
+                            availableCharacter.map(
+                              z => ({
+                                ...z,
+                                assignedPlayer: ""
+                              })
+                            )
+                          )
+                        
+                           }
+                          >
+                            {y.name}
+                          </button>
+                        )
+                      )
+                    }
+                  </div>
+
                     <input type="checkbox" className="checkbox"
                     
                     checked={x.checked}

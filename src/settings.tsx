@@ -268,6 +268,7 @@ export const Settings: React.FC<SetupProps> = ({
                 key= {x.characterName} >
                   <summary className="collapse-title text-l font-medium">
                     <span>{ x.characterName}  </span>
+                    ({selectedCharacter.find(y => y.characterName.characterName === x.characterName)?.assignedPlayer ?? "none"})
 
 
                   <label className="label cursor-pointer">
@@ -281,10 +282,10 @@ export const Settings: React.FC<SetupProps> = ({
                         y => (
                           <button className="btn"
                           onClick={() => setAvailableCharacter(
-                            availableCharacter.map(
+                            selectedCharacter.map(
                               z => ({
                                 ...z,
-                                assignedPlayer: ""
+                                assignedPlayer: z.characterName.characterName === x.characterName ? y.name : z.assignedPlayer
                               })
                             )
                           )

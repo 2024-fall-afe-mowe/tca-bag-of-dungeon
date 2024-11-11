@@ -266,13 +266,21 @@ export const Settings: React.FC<SetupProps> = ({
                 <details className="collapse bg-base-200"  
                 key= {x.characterName} >
                   <summary className="collapse-title text-l font-medium">
-                    <span>{ x.characterName}  </span>
+                    <span>{ x.characterName} </span>
 
-
-                  <label className="label cursor-pointer">
-                    Assign
-
-                  <div className="flex">
+                  <div className="flex">  
+                    {
+                      availablePlayers.filter(
+                        y => y.checked
+                      ).map(
+                        y => (
+                          <button className="btn btn-outline btn-success btn-sm">
+                            {y.name}
+                          </button>
+                        )
+                      )
+                    }
+                  
                     {/*  Player Assignment button 
                       availablePlayers.filter(
                         y => y.checked
@@ -312,7 +320,6 @@ export const Settings: React.FC<SetupProps> = ({
                 }
                 /> */}
 
-                  </label>
                     </summary>
                 <div className="card shadow-xl mb-3 collapse-content">
                   <table className="table table-zebra">

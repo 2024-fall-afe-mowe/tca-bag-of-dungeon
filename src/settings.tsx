@@ -49,7 +49,6 @@ export const Settings: React.FC<SetupProps> = ({
       x => ({
         characterName: x,
         checked: true,
-        assignedPlayer: ""
       })
     )
   );
@@ -58,7 +57,7 @@ export const Settings: React.FC<SetupProps> = ({
     previousPlayers.map(x => ({
         name: x,
         checked: false,
-        character: undefined
+        character: ""
      }))
 );
 
@@ -84,7 +83,7 @@ export const Settings: React.FC<SetupProps> = ({
           {
             name: newPlayerName,
             checked: true,
-            character: undefined
+            character: ""
           }
         ].sort(
           (a,b) => a.name.toLocaleUpperCase().localeCompare(b.name.toUpperCase())
@@ -242,6 +241,9 @@ export const Settings: React.FC<SetupProps> = ({
 
                   <span className="flex label-text">
                     {x.name} 
+                    {
+                      x.character.length > 0 && `(${x.character})`
+                    }
                   </span>
 
                 </label>
@@ -268,9 +270,6 @@ export const Settings: React.FC<SetupProps> = ({
                 key= {x.characterName} >
                   <summary className="collapse-title text-l font-medium">
                     <span>{ x.characterName}  </span>
-                    ({selectedCharacter.find(y => y.characterName.characterName === x.characterName)?.assignedPlayer ?? "none"})
-
-
                   <label className="label cursor-pointer">
                     Assign
 
@@ -281,11 +280,11 @@ export const Settings: React.FC<SetupProps> = ({
                       ).map(
                         y => (
                           <button className="btn"
-                          onClick={() => setAvailableCharacter(
-                            selectedCharacter.map(
+                          onClick={() => setAvailablePlayers(
+                            availablePlayers.map(
                               z => ({
                                 ...z,
-                                assignedPlayer: z.characterName.characterName === x.characterName ? y.name : z.assignedPlayer
+                                character: z.name === y.name ? x.characterName : z.character
                               })
                             )
                           )

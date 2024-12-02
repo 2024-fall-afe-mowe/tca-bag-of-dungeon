@@ -29,6 +29,8 @@ export const Play: React.FC<PlayProps> = ({
   setTitle
 }) => {
 
+  console.log(currentPlayers);
+
   useEffect(
     () => setTitle("Play"),
     []

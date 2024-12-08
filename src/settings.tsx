@@ -263,7 +263,7 @@ export const Settings: React.FC<SetupProps> = ({
                   <span className="flex label-text">
                     {x.name} 
                     {
-                       x.character.characterName.length > 0 && `(${x.character.characterName})`
+                      x.character.characterName.length > 0 && `(${x.character.characterName})`
                     }
                   </span>
 

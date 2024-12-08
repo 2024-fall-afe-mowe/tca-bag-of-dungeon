@@ -57,7 +57,8 @@ export type Monster = {
 
 export type CurrentPlayer = {
     name: string;
-    characterName: Character;
+    character: Character;
+r
 };
 
 export type GeneralFactsDisplay = {

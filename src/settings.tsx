@@ -142,6 +142,10 @@ export const Settings: React.FC<SetupProps> = ({
 )
 ) 
 
+
+
+
+
     return(
   <div>
   <div className="text-center mb-3">
@@ -181,7 +185,7 @@ export const Settings: React.FC<SetupProps> = ({
         )
       );
       nav("../play")
-    }}
+    }} 
     >
     
       <a>
@@ -288,7 +292,7 @@ export const Settings: React.FC<SetupProps> = ({
                   <summary className="collapse-title text-l font-medium">
                     <span>{ x.characterName}  </span>
                   <label className="label cursor-pointer">
-                    Assign
+                    Assign:
 
                   <div className="flex">
                     {
@@ -314,21 +318,6 @@ export const Settings: React.FC<SetupProps> = ({
                       )
                     }
                   </div>
-
-                    <input type="checkbox" className="checkbox"
-                    
-                    checked={x.checked}
-/*                   onChange={() => setCharacter(
-                    availableCharacter.map( y => ({
-                      ...y,
-                      checked: y.characterName === x.characterName
-                      ? !y.checked
-                      : y.checked
-                    })),
-
-                  ) 
-                }*/
-                />
 
                   </label>
                     </summary>

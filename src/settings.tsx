@@ -47,7 +47,8 @@ export const Settings: React.FC<SetupProps> = ({
   const [selectedCharacter, setAvailableCharacter] = useState(
     availableCharacter.map(
       x => ({
-        characterName: x
+        characterName: x,
+        checked: true,
       })
     )
   );
@@ -56,7 +57,15 @@ export const Settings: React.FC<SetupProps> = ({
     previousPlayers.map(x => ({
         name: x,
         checked: false,
-        character: ""
+        character: {
+          characterName: "",
+          health: 0,
+          combatDice: 0,
+          combatModifier: 0,
+          specialSkill: "",
+          specialNotes: "",
+          checked: undefined
+        }
      }))
 );
 
@@ -82,7 +91,15 @@ export const Settings: React.FC<SetupProps> = ({
           {
             name: newPlayerName,
             checked: true,
-            character: ""
+            character: {
+              characterName: "",
+              health: 0,
+              combatDice: 0,
+              combatModifier: 0,
+              specialSkill: "",
+              specialNotes: "",
+              checked: undefined
+            }
           }
         ].sort(
           (a,b) => a.name.toLocaleUpperCase().localeCompare(b.name.toUpperCase())
@@ -163,6 +180,7 @@ export const Settings: React.FC<SetupProps> = ({
         ).map(
           x => ({
             name: x.name,
+            character: x.character
           })
         )
       );
@@ -245,7 +263,7 @@ export const Settings: React.FC<SetupProps> = ({
                   <span className="flex label-text">
                     {x.name} 
                     {
-                      x.character.length > 0 && `(${x.character})`
+                       x.character.characterName.length > 0 && `(${x.character.characterName})`
                     }
                   </span>
 
@@ -287,7 +305,7 @@ export const Settings: React.FC<SetupProps> = ({
                             availablePlayers.map(
                               z => ({
                                 ...z,
-                                character: z.name === y.name ? x.characterName : z.character
+                                character: z.name === y.name ? x : z.character
                               })
                             )
                           )

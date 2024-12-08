@@ -30,6 +30,8 @@ export const Play: React.FC<PlayProps> = ({
   setTitle
 }) => {
 
+  console.log(currentPlayers);
+
   useEffect(
     () => setTitle("Play"),
     []
@@ -110,6 +112,8 @@ export const Play: React.FC<PlayProps> = ({
       const playerDiceRoll = () => {
         setPlayerRoll(playerDiceMath(1, 12));
       };
+
+
 
 
 //Calculations Start

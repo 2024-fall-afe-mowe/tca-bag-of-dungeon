@@ -30,6 +30,12 @@ export type BossData = {
     specialNotes: string;
 };
 
+export type Turn = {
+    turnNumber: number;
+    player: string;
+    actionPointsUsed: number;
+    hPLost: number;
+}
 
 export type Character = {
     characterName: string;
@@ -51,7 +57,7 @@ export type Monster = {
 
 export type CurrentPlayer = {
     name: string;
- //   characterName: Character;
+    characterName: Character;
 };
 
 export type GeneralFactsDisplay = {

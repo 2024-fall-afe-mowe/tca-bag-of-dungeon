@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tca-bag-of-dungeon/static/css/main.334d5377.css",
-    "main.js": "/tca-bag-of-dungeon/static/js/main.6a392637.js",
+    "main.css": "/tca-bag-of-dungeon/static/css/main.12570a25.css",
+    "main.js": "/tca-bag-of-dungeon/static/js/main.a543d73a.js",
     "static/js/453.f3153732.chunk.js": "/tca-bag-of-dungeon/static/js/453.f3153732.chunk.js",
     "index.html": "/tca-bag-of-dungeon/index.html",
-    "main.334d5377.css.map": "/tca-bag-of-dungeon/static/css/main.334d5377.css.map",
-    "main.6a392637.js.map": "/tca-bag-of-dungeon/static/js/main.6a392637.js.map",
+    "main.12570a25.css.map": "/tca-bag-of-dungeon/static/css/main.12570a25.css.map",
+    "main.a543d73a.js.map": "/tca-bag-of-dungeon/static/js/main.a543d73a.js.map",
     "453.f3153732.chunk.js.map": "/tca-bag-of-dungeon/static/js/453.f3153732.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.334d5377.css",
-    "static/js/main.6a392637.js"
+    "static/css/main.12570a25.css",
+    "static/js/main.a543d73a.js"
   ]
 }

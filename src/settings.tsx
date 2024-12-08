@@ -57,7 +57,15 @@ export const Settings: React.FC<SetupProps> = ({
     previousPlayers.map(x => ({
         name: x,
         checked: false,
-        character: undefined
+        character: {
+          characterName: "",
+          health: 0,
+          combatDice: 0,
+          combatModifier: 0,
+          specialSkill: "",
+          specialNotes: "",
+          checked: undefined
+        }
      }))
 );
 
@@ -83,7 +91,15 @@ export const Settings: React.FC<SetupProps> = ({
           {
             name: newPlayerName,
             checked: true,
-            character: undefined
+            character: {
+              characterName: "",
+              health: 0,
+              combatDice: 0,
+              combatModifier: 0,
+              specialSkill: "",
+              specialNotes: "",
+              checked: undefined
+            }
           }
         ].sort(
           (a,b) => a.name.toLocaleUpperCase().localeCompare(b.name.toUpperCase())
@@ -126,6 +142,10 @@ export const Settings: React.FC<SetupProps> = ({
 )
 ) 
 
+
+
+
+
     return(
   <div>
   <div className="text-center mb-3">
@@ -160,11 +180,12 @@ export const Settings: React.FC<SetupProps> = ({
         ).map(
           x => ({
             name: x.name,
+            character: x.character
           })
         )
       );
       nav("../play")
-    }}
+    }} 
     >
     
       <a>
@@ -241,6 +262,9 @@ export const Settings: React.FC<SetupProps> = ({
 
                   <span className="flex label-text">
                     {x.name} 
+                    {
+                       x.character.characterName.length > 0 && `(${x.character.characterName})`
+                    }
                   </span>
 
                 </label>
@@ -267,24 +291,33 @@ export const Settings: React.FC<SetupProps> = ({
                 key= {x.characterName} >
                   <summary className="collapse-title text-l font-medium">
                     <span>{ x.characterName}  </span>
-
-
                   <label className="label cursor-pointer">
-                    Assign
-                    <input type="checkbox" className="checkbox"
-                    
-                    checked={x.checked}
-/*                   onChange={() => setCharacter(
-                    availableCharacter.map( y => ({
-                      ...y,
-                      checked: y.characterName === x.characterName
-                      ? !y.checked
-                      : y.checked
-                    })),
+                    Assign:
 
-                  ) 
-                }*/
-                />
+                  <div className="flex">
+                    {
+                      availablePlayers.filter(
+                        y => y.checked
+                      ).map(
+                        y => (
+                          <button className="btn"
+                          onClick={() => setAvailablePlayers(
+                            availablePlayers.map(
+                              z => ({
+                                ...z,
+                                character: z.name === y.name ? x : z.character
+                              })
+                            )
+                          )
+                        
+                           }
+                          >
+                            {y.name}
+                          </button>
+                        )
+                      )
+                    }
+                  </div>
 
                   </label>
                     </summary>

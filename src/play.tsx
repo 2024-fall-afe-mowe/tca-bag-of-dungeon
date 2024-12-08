@@ -13,6 +13,7 @@ import {
   bossType,
   monsterList,
   Monster,
+  Turn,
   GameResult
  } from "./game-results";
 
@@ -29,6 +30,8 @@ export const Play: React.FC<PlayProps> = ({
   setTitle
 }) => {
 
+  console.log(currentPlayers);
+
   useEffect(
     () => setTitle("Play"),
     []
@@ -42,44 +45,65 @@ export const Play: React.FC<PlayProps> = ({
      const [counter, updateCounter] = useState(5); //range from 4 to 6
      const [playerRoll, setPlayerRoll] = useState(0); //cannot be more than 2d6 dice, so no more than 12 without modifiers
      const [modifiedCombat, setModifier] = useState(0);
+     //const [activePlayer, setActivePlayer] = useState("");
 
+
+     const [turns, setTurns] = useState<Turn[]>([
+      {
+          turnNumber: 1,
+          player: currentPlayers[0].name,
+          actionPointsUsed: 0,
+          hPLost: 0
+      }
+  ]);
+
+    const updateAPCount = (
+      player: string,
+      turnNumber: number,
+      delta: number, 
+    ) =>setTurns(
+      turns.map(
+        x => ({
+          ...x, 
+          actionPointsUsed: player === x.player && turnNumber === x.turnNumber
+          ? x.actionPointsUsed === 0 && delta < 0
+          ? 0
+          : x.actionPointsUsed + delta
+          : x.actionPointsUsed
+        })
+      )
+    ) 
+
+    //counter functions
       const actionPointIncrease = () => {
           updateCounter(counter + 1)
       };
-
       const actionPointDecrease = () => {
         updateCounter(counter <= 0 ? 0 : counter -1)
       };
-
       const resetAP = () => {
         updateCounter(5);
       };
-
       const hPIncrease = () => {
-          updateHPCounter(counter + 1)
+          updateHPCounter(hPCounter + 1)
       };
-
       const hPDecrease = () => {
-        updateHPCounter(counter <= 0 ? 0 : counter -1)
+        updateHPCounter(hPCounter <= 0 ? 0 : hPCounter -1)
       };
-
       const resetHP = () => {
         updateHPCounter(9);
       };
-
       const lifeIncrease = () => {
-        updateLifeCounter(counter + 1)
+        updateLifeCounter(lifeCounter + 1)
       };
-
       const lifeDecrease = () => {
-        updateLifeCounter(counter <= 0 ? 0 : counter -1)
+        updateLifeCounter(lifeCounter <= 0 ? 0 : lifeCounter -1)
       };
-
       const resetLives = () => {
-        updateLifeCounter(9);
+        updateLifeCounter(3);
       };
 
-      
+    //Player dice roll
       const playerDiceMath = (min: number, max: number) => {
         return Math.floor(Math.random()
         * (max - min + 1)) + min;
@@ -88,6 +112,9 @@ export const Play: React.FC<PlayProps> = ({
       const playerDiceRoll = () => {
         setPlayerRoll(playerDiceMath(1, 12));
       };
+
+
+
 
 //Calculations Start
       const getModifiers = (event: { target: { value: SetStateAction<number>; }; }) => {
@@ -138,23 +165,42 @@ export const Play: React.FC<PlayProps> = ({
       {/* Play screen cards */}
       <div className="form-control flex">
 
+{/*         <button 
+        className="btn btn-outline btn-success btn-small"
+        onClick={setActive} >
+          Roll to Start
+        </button> */}
+
       {/* Player Card */}
-      <div className="card bg-base-100 shadow-xl mb-3">
+      <div className="flex flex-col">
+      <div className="card bg-base-100 shadow-xl mb-3 flex-col">
         <div className="card-body p-3 overflow-x-hidden mb-3" >
               <div>
                 <span>
                 {
-          currentPlayers.map(
-            x => (
-              <div className="form-control"
-              key={x.name}>
+          turns.map((x, i) => (
+              <div className="form-control join p-5"
+              key={`${x.turnNumber}~${x.player}`}
+              >
                 
-                 <span className="flex label-text">
-                    {x.name} <br/>
-                  </span>
-                  
+                 <span className="flex">
+                  <div>
+                      <span 
+                      className="align-top text-small">
+                        Turn: {x.turnNumber} 
+                      </span>
+                      <br/>
+                      <span
+                      className="flex">
+                        {x.player}
+                      </span>
+                  </div>
+                  </span> 
+                  {
+                    turns.length - 1 === i
+                    ? (
                   <div className="flex font-small ">
-                    <div className="items-center">
+                      <div className="items-center">
                       <span> 
                          <a className="text-sm font-small">Lives: <br /> </a>
                          </span>
@@ -164,25 +210,21 @@ export const Play: React.FC<PlayProps> = ({
                     </button>
                     <span className="items-center"> {lifeCounter} </span>
                     <button className="btn btn-outline btn-success btn-sm"
-                    onClick= {lifeIncrease}
+                    onClick={lifeIncrease}
                     >+
                     </button>
-
                     <br />
-
                     <span>
                       <button className="btn btn-outline btn-success btn-sm"
-                      onClick={resetLives}>
+                      onClick={resetLives}
+
+                      >
                         Reset Lives
                       </button>
                     </span>
-
                     </div>
-                  </div>
 
-                  <br/>
-    
-                  <div className="flex font-small">
+                    <div className="flex font-small">
                     <div className="items-center">
                       <span> 
                          <a className="text-sm font-small">Health Points: <br /> </a>
@@ -196,56 +238,91 @@ export const Play: React.FC<PlayProps> = ({
                     onClick= {hPIncrease}
                     >+
                     </button>
-
                     <br />
-
                     <span>
                       <button className="btn btn-outline btn-success btn-sm"
-                      onClick={resetHP}>
+                      onClick={resetHP}
+                      >
                         Reset Health
                       </button>
                     </span>
 
                     </div>
                   </div>
-
-                  <br/>
-
                   <div className="flex font-small">
                     <div className="items-center">
                       <span> 
                          <a className="text-sm font-small">Action Points: <br /> </a>
                          </span>
-                    <button className="btn btn-outline btn-success btn-sm"
+                    <button className="btn btn-outline btn-warning btn-sm"
                     onClick={actionPointDecrease}
                     > -
                     </button>
                     <span className="items-center"> {counter} </span>
                     <button className="btn btn-outline btn-success btn-sm"
-                    onClick= {actionPointIncrease}
+                    onClick= 
+                     {actionPointIncrease}
                     >+
                     </button>
-
                     <br />
-
                     <span>
                       <button className="btn btn-outline btn-success btn-sm"
-                      onClick={resetAP}>
+                      onClick={resetAP}
+                      >
                         Reset Points
                       </button>
                     </span>
 
                     </div>
                   </div>
-                 
+                    </div>
 
-               
-                  <div className="divider lg:divider-vertical"></div>
-              </div>
-  
+                    )
+                    :
+                    (
+                      <div>
+                       
+                      </div>
+                    )
+                  }
+ 
+
+                  </div>//LAST DIV
+                
+              )
             )
-          )
-         } 
+           } 
+
+                  <div className="divider lg:divider-vertical"></div>
+                  <span>
+                      <button
+                    className="btn btn-outline btn-sm"
+                    onClick={() => turns.length > 1 && setTurns(turns.slice(0, -1))}>
+                      &lt;
+                    </button>
+                    <button
+                    className="btn btn-outline btn-sm"
+                    onClick={() => setTurns([
+                      ...turns, 
+                      {
+                        turnNumber: turns.length % currentPlayers.length > 0
+                        ? Math.ceil(turns.length / currentPlayers.length)
+                        : (turns.length / currentPlayers.length) + 1,
+                        player: currentPlayers[
+                          turns.length % currentPlayers.length
+                        ].name, 
+                        actionPointsUsed: 0,
+                        hPLost: 0
+                      }
+                    ]) }>
+                      Next
+                    </button>
+                  </span>
+
+
+
+
+
                 </span> 
 
         
@@ -277,13 +354,13 @@ export const Play: React.FC<PlayProps> = ({
             Your Score: {modifiedCombat}
 
          </div>
-
+         </div>
 
 
       {/* Monster Card */}
-      <div className="card bg-base-100 shadow-xl mb-3">
+{/*       <div className="card bg-base-100 shadow-xl mb-3">
         <div className="card-body p-3 overflow-x-hidden mb-3">
-           <h3 className="card-title"> Monster Card </h3>
+           <h3 className="card-title">Monster Card </h3>
            <div className="card-body p-3 overflow-x-hidden mb-3">
                  
                  <select className="select select-bordered w-full max-w-xs">
@@ -305,10 +382,10 @@ export const Play: React.FC<PlayProps> = ({
          </div>
         </div>
       
-      </div>
+      </div> */}
 
       {/* Boss Card */}
-      <div className="card bg-base-100 shadow-xl mb-3">
+{/*       <div className="card bg-base-100 shadow-xl mb-3">
         <div className="card-body p-3 overflow-x-hidden mb-3">
            <h3 className="card-title">
                         Boss Card
@@ -326,9 +403,7 @@ export const Play: React.FC<PlayProps> = ({
                  </select>
         </div>
       </div>
-
-   
-
+ */}
      <div className="card bg-base-100 shadow-xl mb-3 items-center">
         <div className="card-body p-3 overflow-x-hidden mb3">
         <h3 className="card-title">

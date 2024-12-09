@@ -33,6 +33,7 @@ export type BossData = {
 export type Turn = {
     turnNumber: number;
     player: string;
+    playerCharacter: Character;
     actionPointsUsed: number;
     hPLost: number;
 }
@@ -58,8 +59,11 @@ export type Monster = {
 export type CurrentPlayer = {
     name: string;
     character: Character;
-r
 };
+
+export type CurrentCharacter = {
+    characterName: string;
+}
 
 export type GeneralFactsDisplay = {
     lastPlayed: string 
@@ -135,6 +139,8 @@ export const getPreviousPlayers = (results: GameResult[]) => {
     };
     };
     
+
+
    export const getGeneralFacts = (results: GameResult[]): GeneralFactsDisplay => {
     
         const now = Date.now();

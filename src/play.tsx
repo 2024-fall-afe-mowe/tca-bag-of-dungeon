@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 import { 
-  SetStateAction,
   useEffect,
   useRef, 
   useState 
@@ -9,7 +8,7 @@ import {
 
 import { 
   CurrentPlayer,
-  Character,
+  CurrentCharacter,
   bossType,
   monsterList,
   Monster,
@@ -20,17 +19,18 @@ import {
  interface PlayProps {
   addNewGameResult: (gr: GameResult) => void;
   currentPlayers: CurrentPlayer[];
-  //currentCharacter: currentCharacter[];
+  currentCharacters: CurrentCharacter[];
   setTitle:(t:string) => void;
  }
 
 export const Play: React.FC<PlayProps> = ({
   addNewGameResult,
   currentPlayers,
+  currentCharacters,
   setTitle
 }) => {
 
-  console.log(currentPlayers);
+ // console.log(currentPlayers); 
 
   useEffect(
     () => setTitle("Play"),
@@ -43,36 +43,22 @@ export const Play: React.FC<PlayProps> = ({
      const [lifeCounter, updateLifeCounter] = useState(3); //always base of 3
      const [hPCounter, updateHPCounter] = useState(9); //range from 9 to 12
      const [counter, updateCounter] = useState(5); //range from 4 to 6
-     const [playerRoll, setPlayerRoll] = useState(0); //cannot be more than 2d6 dice, so no more than 12 without modifiers
-     const [modifiedCombat, setModifier] = useState(0);
-     //const [activePlayer, setActivePlayer] = useState("");
+     const [playerRoll, setPlayerRoll] = useState(0); //range from 2 to 12
 
+     const [modifiedCombat, setModifier] = useState(0);
+
+     const [combatResult, setResult] = useState(0);
 
      const [turns, setTurns] = useState<Turn[]>([
       {
           turnNumber: 1,
           player: currentPlayers[0].name,
+          playerCharacter: currentPlayers[0].character,
           actionPointsUsed: 0,
           hPLost: 0
       }
   ]);
 
-    const updateAPCount = (
-      player: string,
-      turnNumber: number,
-      delta: number, 
-    ) =>setTurns(
-      turns.map(
-        x => ({
-          ...x, 
-          actionPointsUsed: player === x.player && turnNumber === x.turnNumber
-          ? x.actionPointsUsed === 0 && delta < 0
-          ? 0
-          : x.actionPointsUsed + delta
-          : x.actionPointsUsed
-        })
-      )
-    ) 
 
     //counter functions
       const actionPointIncrease = () => {
@@ -110,28 +96,39 @@ export const Play: React.FC<PlayProps> = ({
       };
 
       const playerDiceRoll = () => {
-        setPlayerRoll(playerDiceMath(1, 12));
+        setPlayerRoll(playerDiceMath(2, 12));
       };
 
 
 
 
 //Calculations Start
-      const getModifiers = (event: { target: { value: SetStateAction<number>; }; }) => {
-        setModifier(event.target.value);
-        console.log(setModifier);
+      const getModifiers = () => {
+        if(
+          modifiedCombat > 0 || modifiedCombat < 0
+        )
+        {
+          setModifier(
+          modifiedCombat
+          )
+        }
+        console.log(modifiedCombat);
       }
 
-      const combatRollMath = (a: number,b: number) => {
-          return +a + +b;
-      }
 
       const calculateRoll = () => {
-       
-       console.log(modifiedCombat)
-
+        setResult(
+          playerRoll + modifiedCombat
+        )
+    //   console.log(combatResult)
       }
 
+      const subtractRoll = () => {
+        setResult(
+          playerRoll - modifiedCombat
+        )
+      // console.log(combatResult)
+      }
 
 
     return(
@@ -180,7 +177,7 @@ export const Play: React.FC<PlayProps> = ({
                 {
           turns.map((x, i) => (
               <div className="form-control join p-5"
-              key={`${x.turnNumber}~${x.player}`}
+              key={`${x.turnNumber}~${x.player}~${x.playerCharacter}`}
               >
                 
                  <span className="flex">
@@ -192,88 +189,157 @@ export const Play: React.FC<PlayProps> = ({
                       <br/>
                       <span
                       className="flex">
-                        {x.player}
+                        <table className="table table-xs">
+                          <thead>
+                            <tr>
+                              <th>
+                              {x.player}
+                              </th>
+                              <th>
+                              {x.playerCharacter.characterName}
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                Health:
+                              </td>
+                              <td>
+                                {x.playerCharacter.health}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Combat Modifier:
+                              </td>
+                              <td>
+                                {x.playerCharacter.combatModifier}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Special Skill:
+                              </td>
+                              <td>
+                                {x.playerCharacter.specialSkill}
+                              </td>
+                            </tr>
+                           </tbody>
+                        </table>
+                        
+
                       </span>
                   </div>
                   </span> 
                   {
                     turns.length - 1 === i
                     ? (
-                  <div className="flex font-small ">
+                  <div className="flex font-small">
                       <div className="items-center">
-                      <span> 
-                         <a className="text-sm font-small">Lives: <br /> </a>
-                         </span>
-                    <button className="btn btn-outline btn-success btn-sm"
-                    onClick={lifeDecrease}
-                    > -
-                    </button>
-                    <span className="items-center"> {lifeCounter} </span>
-                    <button className="btn btn-outline btn-success btn-sm"
-                    onClick={lifeIncrease}
-                    >+
-                    </button>
-                    <br />
-                    <span>
-                      <button className="btn btn-outline btn-success btn-sm"
-                      onClick={resetLives}
 
-                      >
-                        Reset Lives
-                      </button>
-                    </span>
+                      <table className="table table-xs">
+                      <thead>
+                            <tr>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                Lives
+                              </td>
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                               onClick={lifeDecrease}
+                              > -
+                              </button>
+                              </td>
+                              <td>
+                                {lifeCounter}
+                              </td>
+                              <td></td>
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                                onClick={resetLives}
+                                >
+                                  Reset
+                                </button>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Health Points
+                              </td>
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                               onClick={hPDecrease}
+                              > -
+                              </button>
+                              </td>
+                              <td>
+                                {hPCounter}
+                              </td>
+
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                               onClick={hPIncrease}
+                              > +
+                              </button> 
+                              </td>
+
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                                onClick={resetHP}
+                                >
+                                  Reset
+                                </button>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Action Points
+                              </td>
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                               onClick={actionPointDecrease}
+                              > -
+                              </button>
+                              </td>
+                              <td>
+                                {counter}
+                              </td>
+
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                               onClick={actionPointIncrease}
+                              > +
+                              </button> 
+                              </td>
+
+                              <td>
+                              <button className="btn btn-outline btn-success btn-sm"
+                                onClick={resetAP}
+                                >
+                                  Reset
+                                </button>
+                              </td>
+                            </tr>
+
+                            </tbody>
+                      </table>
+
+
                     </div>
 
                     <div className="flex font-small">
-                    <div className="items-center">
-                      <span> 
-                         <a className="text-sm font-small">Health Points: <br /> </a>
-                         </span>
-                    <button className="btn btn-outline btn-success btn-sm"
-                    onClick={hPDecrease}
-                    > -
-                    </button>
-                    <span className="items-center"> {hPCounter} </span>
-                    <button className="btn btn-outline btn-success btn-sm"
-                    onClick= {hPIncrease}
-                    >+
-                    </button>
-                    <br />
-                    <span>
-                      <button className="btn btn-outline btn-success btn-sm"
-                      onClick={resetHP}
-                      >
-                        Reset Health
-                      </button>
-                    </span>
-
-                    </div>
+                    
                   </div>
                   <div className="flex font-small">
-                    <div className="items-center">
-                      <span> 
-                         <a className="text-sm font-small">Action Points: <br /> </a>
-                         </span>
-                    <button className="btn btn-outline btn-warning btn-sm"
-                    onClick={actionPointDecrease}
-                    > -
-                    </button>
-                    <span className="items-center"> {counter} </span>
-                    <button className="btn btn-outline btn-success btn-sm"
-                    onClick= 
-                     {actionPointIncrease}
-                    >+
-                    </button>
-                    <br />
-                    <span>
-                      <button className="btn btn-outline btn-success btn-sm"
-                      onClick={resetAP}
-                      >
-                        Reset Points
-                      </button>
-                    </span>
-
-                    </div>
+                   
                   </div>
                     </div>
 
@@ -281,17 +347,22 @@ export const Play: React.FC<PlayProps> = ({
                     :
                     (
                       <div>
-                       
+                     
                       </div>
                     )
                   }
- 
-
                   </div>//LAST DIV
                 
               )
             )
            } 
+
+            <div className="flex">
+              {
+                
+              }
+
+            </div>
 
                   <div className="divider lg:divider-vertical"></div>
                   <span>
@@ -311,6 +382,9 @@ export const Play: React.FC<PlayProps> = ({
                         player: currentPlayers[
                           turns.length % currentPlayers.length
                         ].name, 
+                        playerCharacter: currentPlayers[
+                          turns.length % currentPlayers.length
+                        ].character,
                         actionPointsUsed: 0,
                         hPLost: 0
                       }
@@ -342,16 +416,35 @@ export const Play: React.FC<PlayProps> = ({
 
             <span><br />
             <label>
-              Combat Modifiers:    
-              <input name="enteredModifier" defaultValue="0" //onChange={() => getModifiers} 
-              />
+              Combat Modifiers:     
+              <input className="input input-bordered input-xs mx-2"
+              name="enteredModifier"  
+              value={modifiedCombat}
+              onChange={(e) => setModifier(Number(e.target.value))}
+              /> 
             </label>
             
-            <button className="btn btn-outline btn-success btn-sm"
-            onClick={calculateRoll}
-            >Calculate</button>
+            {/* <button className="btn btn-outline btn-secondary btn-sm"
+            onClick={getModifiers}
+            >Set</button> */}
             </span>
-            Your Score: {modifiedCombat}
+
+            <span>
+              <button
+              className="btn btn-outline btn-success mt-2 mx-1"
+              onClick={calculateRoll}
+              >
+                Add Modifiers
+              </button>
+
+{/*               <button
+              className="btn btn-outline btn-warning mt-2"
+              onClick={subtractRoll}
+              >
+                Negative Modifiers
+              </button> */}
+            </span>
+            Your Score: {combatResult}
 
          </div>
          </div>

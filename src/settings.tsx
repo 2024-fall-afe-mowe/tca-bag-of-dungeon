@@ -15,11 +15,12 @@ import {
   CurrentPlayer,
   getPreviousPlayers
  } from "./game-results";
+import { get } from "https";
 
  interface SetupProps {
   previousPlayers: string[];
   setCurrentPlayers: (players: CurrentPlayer[]) => void;
-  setCurrentCharacter: (character: Character[]) => void;
+  setCurrentCharacter: (characters: Character[]) => void;
   setTitle:(t:string) => void;
 }
 
@@ -47,8 +48,16 @@ export const Settings: React.FC<SetupProps> = ({
   const [selectedCharacter, setAvailableCharacter] = useState(
     availableCharacter.map(
       x => ({
-        characterName: x,
-        checked: true,
+        character: {
+          characterName: "",
+          health: 0,
+          combatDice: 0,
+          combatModifier: 0,
+          specialSkill: "",
+          specialNotes: "",
+          checked: undefined
+        },
+        checked: false
       })
     )
   );
@@ -107,20 +116,10 @@ export const Settings: React.FC<SetupProps> = ({
       );
         setNewPlayerName("");
 
+
   };
 
-/*   const getCharacterData = () => {
-    availableCharacter.map(
-      x => (
-        x.characterName, 
-        x.health, 
-        x.combatDice,
-        x.combatModifier,
-        x.specialSkill,
-        x.specialNotes
-      )
-    )
-  }; */
+
 
 
   const playersChosen = 
@@ -128,22 +127,6 @@ export const Settings: React.FC<SetupProps> = ({
   availablePlayers.filter(x => x.checked).length > 0 &&
   availableCharacter.filter(x => x.checked).length <= 4 
   ;
-
-
- const setCharacter = (
-  playerName: string, character: Character[]
-) => setAvailablePlayers(
-  availablePlayers.map(x => ({
-    ...x, 
-    selectedCharacter: x.name === playerName
-    ? character
-    : x.character
-  })
-)
-) 
-
-
-
 
 
     return(
@@ -263,7 +246,7 @@ export const Settings: React.FC<SetupProps> = ({
                   <span className="flex label-text">
                     {x.name} 
                     {
-                      x.character.characterName.length > 0 && `(${x.character.characterName})`
+                      x.character.characterName.length > 0 && `  (${x.character.characterName})`
                     }
                   </span>
 
@@ -309,7 +292,6 @@ export const Settings: React.FC<SetupProps> = ({
                               })
                             )
                           )
-                        
                            }
                           >
                             {y.name}
@@ -321,8 +303,8 @@ export const Settings: React.FC<SetupProps> = ({
 
                   </label>
                     </summary>
-                <div className="card shadow-xl mb-3 collapse-content">
-                  <table className="table table-zebra">
+                <div className="shadow-xl mb-3 collapse-content">
+                  <table className="table table-sm table-zebra">
                     <tbody>
                       <tr>
                         <td>Health:</td>

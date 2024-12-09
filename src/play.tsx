@@ -378,12 +378,12 @@ export const Play: React.FC<PlayProps> = ({
                     </button>
                     <button
                     className="btn btn-outline btn-sm"
-                    onClick={() => setTurns([
+                    onClick={() => { setTurns([
                       ...turns, 
                       {
                         turnNumber: turns.length % currentPlayers.length > 0
                         ? Math.ceil(turns.length / currentPlayers.length)
-                        : (turns.length / currentPlayers.length) + 1,
+                        : (turns.length / currentPlayers.length) + 1, 
                         player: currentPlayers[
                           turns.length % currentPlayers.length
                         ].name, 
@@ -393,7 +393,12 @@ export const Play: React.FC<PlayProps> = ({
                         actionPointsUsed: 0,
                         hPLost: 0
                       }
-                    ]) }>
+                    ]); 
+                    setModifier(currentPlayers[
+                      turns.length % currentPlayers.length
+                    ].character.combatModifier)
+                  }
+                    }>
                       Next
                     </button>
                   </span>

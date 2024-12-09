@@ -43,10 +43,12 @@ export const Play: React.FC<PlayProps> = ({
      const [lifeCounter, updateLifeCounter] = useState(3); //always base of 3
      const [hPCounter, updateHPCounter] = useState(9); //range from 9 to 12
      const [counter, updateCounter] = useState(5); //range from 4 to 6
+
+    const [activeMonster, setMonster] = useState("");
+    const [activeBoss, setBoss] = useState("")
+
      const [playerRoll, setPlayerRoll] = useState(0); //range from 2 to 12
-
      const [modifiedCombat, setModifier] = useState(0);
-
      const [combatResult, setResult] = useState(0);
 
      const [turns, setTurns] = useState<Turn[]>([
@@ -99,7 +101,10 @@ export const Play: React.FC<PlayProps> = ({
         setPlayerRoll(playerDiceMath(2, 12));
       };
 
-
+// monster display only
+      const monsterChoice = () => {
+        
+      }
 
 
 //Calculations Start
@@ -451,7 +456,7 @@ export const Play: React.FC<PlayProps> = ({
 
 
       {/* Monster Card */}
-{/*       <div className="card bg-base-100 shadow-xl mb-3">
+{/*        <div className="card bg-base-100 shadow-xl mb-3">
         <div className="card-body p-3 overflow-x-hidden mb-3">
            <h3 className="card-title">Monster Card </h3>
            <div className="card-body p-3 overflow-x-hidden mb-3">
@@ -462,7 +467,8 @@ export const Play: React.FC<PlayProps> = ({
            monsterList.map(
              x => (
                <option 
-              // onChange={ }
+               value={activeMonster}
+               onChange={(e) => setMonster(e.target.value)}
                > 
                {x.monsterName} </option>
              )
@@ -475,7 +481,7 @@ export const Play: React.FC<PlayProps> = ({
          </div>
         </div>
       
-      </div> */}
+      </div>  */}
 
       {/* Boss Card */}
 {/*       <div className="card bg-base-100 shadow-xl mb-3">
